@@ -146,7 +146,12 @@ h1,h2,h3,h4,h5 {
 }
 
 .main-page {
-  padding-top: 65px;
+  // padding-top: 65px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+
   @include breakpoint(phone) {
     padding-top: 100px;
   }
@@ -543,7 +548,7 @@ h1,h2,h3,h4,h5 {
     }
   }
   .swiper-pagination-progressbar {
-    
+
   }
   .shop-data {
     bottom: 0;
@@ -701,11 +706,11 @@ h1,h2,h3,h4,h5 {
     }
   }
   .featured-item-large {
-    grid-area: \31 ; 
+    grid-area: \31 ;
     width: 100%;
   }
-  .featured-item-small-first { 
-    grid-area: \32 ; 
+  .featured-item-small-first {
+    grid-area: \32 ;
     @include breakpoint(phone) {
       width: 49%;
     }
@@ -713,8 +718,8 @@ h1,h2,h3,h4,h5 {
       width: 100%;
     }
   }
-  .featured-item-small { 
-    grid-area: \33 ; 
+  .featured-item-small {
+    grid-area: \33 ;
     @include breakpoint(phone) {
       width: 49%;
     }
@@ -1226,9 +1231,9 @@ h1,h2,h3,h4,h5 {
     width: 100%;
     position: relative;
     padding-bottom: 100%;
-    border-top: 1px solid #D4D4D4; 
-    border-bottom: 1px solid #D4D4D4; 
-    border-right: 1px solid #D4D4D4; 
+    border-top: 1px solid #D4D4D4;
+    border-bottom: 1px solid #D4D4D4;
+    border-right: 1px solid #D4D4D4;
     .checkbox__color {
       position: absolute;
       top: 8px;
@@ -1239,7 +1244,7 @@ h1,h2,h3,h4,h5 {
   }
   &:first-of-type {
     .checkbox__check {
-      border-left: 1px solid #D4D4D4; 
+      border-left: 1px solid #D4D4D4;
     }
   }
   input {
@@ -1476,7 +1481,7 @@ h1,h2,h3,h4,h5 {
     flex-shrink: 0;
     position: relative;
     margin-right: 18px;
-    border: 1px solid #D4D4D4; 
+    border: 1px solid #D4D4D4;
     &:before {
       display: block;
       content: '';
@@ -1529,9 +1534,9 @@ h1,h2,h3,h4,h5 {
       position: relative;
       padding-bottom: 100%;
       border-left: none;
-      border-top: 1px solid #D4D4D4; 
-      border-bottom: 1px solid #D4D4D4; 
-      border-right: 1px solid #D4D4D4; 
+      border-top: 1px solid #D4D4D4;
+      border-bottom: 1px solid #D4D4D4;
+      border-right: 1px solid #D4D4D4;
       .checkbox__color {
         position: absolute;
         top: 8px;
@@ -1542,7 +1547,7 @@ h1,h2,h3,h4,h5 {
     }
     &:first-of-type {
       .checkbox__check {
-        border-left: 1px solid #D4D4D4; 
+        border-left: 1px solid #D4D4D4;
       }
     }
   }
@@ -2240,7 +2245,7 @@ h1,h2,h3,h4,h5 {
       font-weight: 700;
     }
   }
-} 
+}
 
 .cart-list {
   width: 100%;
@@ -2299,7 +2304,7 @@ h1,h2,h3,h4,h5 {
             display: none;
           }
         }
-      } 
+      }
       &:nth-of-type(1) {
         width: 30%;
       }

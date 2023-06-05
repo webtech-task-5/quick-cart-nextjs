@@ -17,14 +17,14 @@ const IndexPage = () => {
               <a href="#" className="btn btn--rounded">Show Collection</a>
             </div>
           </article>
-          
+
           <article style={{backgroundImage: 'url(/images/featured-2.jpg)'}} className="featured-item featured-item-small-first">
             <div className="featured-item__content">
-              <h3>Basic t-shirts $29,99</h3>
+              <h3>Starting from 999৳</h3>
               <a href="#" className="btn btn--rounded">More details</a>
             </div>
           </article>
-          
+
           <article style={{backgroundImage: 'url(/images/featured-3.jpg)'}} className="featured-item featured-item-small">
             <div className="featured-item__content">
               <h3>Sale this summer</h3>
@@ -48,7 +48,7 @@ const IndexPage = () => {
                 <p>All purchases over $199 are eligible for free shipping via USPS First Class Mail.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-payment"></i>
               <div className="data-item__content">
@@ -56,7 +56,7 @@ const IndexPage = () => {
                 <p>All payments are processed instantly over a secure payment protocol.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-cash"></i>
               <div className="data-item__content">
@@ -65,7 +65,7 @@ const IndexPage = () => {
                 back for a full refund.</p>
               </div>
             </li>
-            
+
             <li>
               <i className="icon-materials"></i>
               <div className="data-item__content">
@@ -78,7 +78,7 @@ const IndexPage = () => {
       </section>
 
       <ProductsFeatured />
-      <Subscribe />
+      {/* <Subscribe /> */}
       <Footer />
     </Layout>
   )
