@@ -2536,19 +2536,10 @@ h1,h2,h3,h4,h5 {
   }
   .form__info {
     margin-bottom: 22px;
-    @include breakpoint(phone) {
-      display: flex;
-      margin-bottom: 32px;
-      align-items: center;
-      justify-content: space-between;
-    }
     .form__info__forgot-password {
       margin-top: 24px;
       text-align: center;
       display: block;
-      @include breakpoint(phone) {
-        margin-top: 0px;
-      }
     }
     .checkbox {
       margin-bottom: 0;

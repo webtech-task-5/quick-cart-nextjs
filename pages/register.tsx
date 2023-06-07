@@ -1,7 +1,30 @@
 import Layout from '../layouts/Main';
 import Link from 'next/link';
+import React, { useState } from 'react';
 
-const RegisterPage = () => (
+const RegisterPage = () => {
+  const [checkCus, setCheckCus] = useState(false);
+  const [checkSel, setCheckSel] = useState(true);
+
+  const onClick = () => {
+    var inputFields = document.querySelectorAll(".form__input");
+    var values = {};
+
+    inputFields.forEach(function(inputField) {
+        var fieldName = inputField.placeholder;
+        var fieldValue = inputField.value;
+        values[fieldName] = fieldValue;
+    });
+    console.log({values, checkCus, checkSel}); // Print or use the values as needed
+
+  }
+
+  const checkTick = () => {
+    setCheckCus((prev: boolean)=>(!prev));
+    setCheckSel((prev: boolean)=>(!prev));
+  }
+
+  return(
   <Layout>
     <section className="form-page">
       <div className="container">
@@ -18,32 +41,37 @@ const RegisterPage = () => (
 
           <form className="form">
             <div className="form__input-row">
-              <input className="form__input" placeholder="First Name" type="text" />
+              <input className="form__input" placeholder="First Name" type="text" required/>
             </div>
 
             <div className="form__input-row">
-              <input className="form__input" placeholder="Last Name" type="text" />
+              <input className="form__input" placeholder="Last Name" type="text" required/>
             </div>
 
             <div className="form__input-row">
-              <input className="form__input" placeholder="Email" type="text" />
+              <input className="form__input" placeholder="Email" type="text" required/>
             </div>
 
             <div className="form__input-row">
-              <input className="form__input" type="Password" placeholder="Password" />
+              <input className="form__input" type="Password" placeholder="Password" required/>
+            </div>
+            <div className="form__input-row"  style={{ display: "flex", gap: "10px" }}>
+              <label htmlFor="check-cus" className={`checkbox checkbox--sm`}>
+                <input name="signed-in" type="checkbox" id="check-cus" onChange={checkTick} checked={checkCus}/>
+                <span className="checkbox__check"></span>
+                  <p>Register as a customer</p>
+              </label>
+              <br/  >
+              <label htmlFor="check-sel" className={`checkbox checkbox--sm`}>
+                <input name="signed-in" type="checkbox" id="check-sel" checked={checkSel} onChange={checkTick}/>
+                <span className="checkbox__check"></span>
+                  <p>Register as a seller</p>
+              </label>
             </div>
 
-            <div className="form__info">
-              <div className="checkbox-wrapper">
-                <label htmlFor="check-signed-in" className={`checkbox checkbox--sm`}>
-                  <input name="signed-in" type="checkbox" id="check-signed-in" />
-                  <span className="checkbox__check"></span>
-                    <p>I agree to the Google Terms of Service and Privacy Policy</p>
-                </label>
-              </div>
-            </div>
 
-            <button type="button" className="btn btn--rounded btn--yellow btn-submit">Sign up</button>
+
+            <button type="submit" className="btn btn--rounded btn--yellow btn-submit" onClick={onClick}>Sign up</button>
 
             <p className="form__signup-link">
               <Link href="/login">
@@ -56,6 +84,6 @@ const RegisterPage = () => (
       </div>
     </section>
   </Layout>
-)
+)}
 
 export default RegisterPage
