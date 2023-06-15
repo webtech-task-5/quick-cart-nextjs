@@ -29,7 +29,7 @@ export default function Demo() {
       code: (value) => (/[0-9]/.test(value) ? null : 'Invalid code'),
     },
   });
-  const onSubmit = (values: { number: string; comname: string; bankacc: string; key: string; }) => {
+  const onSubmit = (values: { number: string; comname: string; bankacc: string; key: string; code: string; }) => {
     console.log(values);}
   return (
     <div style={{display:"flex", justifyContent: "center", alignContent: "center", height:"100vh", width:"100vw"}}>
@@ -37,9 +37,9 @@ export default function Demo() {
       <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
         <Card style={{width:"800px", height:"500px"}} withBorder>
           <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
-            <Stepper.Step label="First step" description="Verify your email">
+            <Stepper.Step label="First step" description="Verify your email" >
               <Center sx={{flexDirection:"column", gap: "12px"}}>
-              <Text pt="xl" mt="xl" size={"xl"}>Please check your email to move forward</Text>
+              <Text size={"xl"}>Please check your email to move forward</Text>
               <TextInput
                 withAsterisk
                 label="Verification Code"
