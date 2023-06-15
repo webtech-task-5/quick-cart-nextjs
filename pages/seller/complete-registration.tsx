@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Stepper, Button, Group, Card, Center, Checkbox, TextInput, Radio, Text } from '@mantine/core';
+import { Stepper, Button, Group, Card, Center, Checkbox, TextInput, Radio, Text, Container } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Demo() {
@@ -38,58 +38,67 @@ export default function Demo() {
         <Card style={{width:"800px", height:"500px"}} withBorder>
           <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
             <Stepper.Step label="First step" description="Verify your email" >
-              <Center sx={{flexDirection:"column", gap: "12px"}}>
+              <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
               <Text size={"xl"}>Please check your email to move forward</Text>
               <TextInput
+              mt={"lg"}
                 withAsterisk
                 label="Verification Code"
                 placeholder="123456"
-                w={400}
                 {...form.getInputProps('code')}
               />
-              </Center>
-
+              </Container>
             </Stepper.Step>
             <Stepper.Step label="Second step" description="Personal information">
-            <Center sx={{flexDirection:"column"}}>
+            <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
             <TextInput
-            p="xl" m="xl"
                   withAsterisk
+                  style={{width: "100%"}}
+                  p={"sm"}
                   label="Phone Number"
                   placeholder="+880 11111111111"
                   {...form.getInputProps('number')}
                 />
                 <TextInput
-                 p="xl" m="xl"
                   withAsterisk
+                  style={{width: "100%"}}
+                  p={"sm"}
                   label="Your shop/company name"
                   placeholder="ABC store"
                   {...form.getInputProps('comname')}
                 />
-              </Center>
-
+              </Container>
               </Stepper.Step>
               <Stepper.Step label="Third step" description="Bank account verification">
-                <TextInput
-                withAsterisk
-                label="Bank Account Number"
-                placeholder="0000 0000 0000 0000"
-                {...form.getInputProps('bankacc')}
-                />
+              <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
                 <TextInput
                   withAsterisk
-                  label="API key"
+                  style={{width: "100%"}}
+                  p={"sm"}
+                  label="Bank Account Number"
                   placeholder="0000 0000 0000 0000"
-                  {...form.getInputProps('key')}
-                />
+                  {...form.getInputProps('bankacc')}
+                  />
+                  <TextInput
+                    withAsterisk
+                    style={{width: "100%"}}
+                    p={"sm"}
+                    label="API key"
+                    placeholder="0000 0000 0000 0000"
+                    {...form.getInputProps('key')}
+                  />
+              </Container>
               </Stepper.Step>
               <Stepper.Completed>
-                Completed, click back button to get to previous step
+              <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
+              Make sure to fillup all the necessary informations.
+                </Container>
+
               </Stepper.Completed>
           </Stepper>
-          <Group position="center" mt="xl">
+          <Group style={{ position: 'absolute', bottom: 0, right: 0, margin: '8px' }} >
             <Button variant="default" onClick={prevStep}>Back</Button>
-            {submit && <Button variant="outline" color="blue" type='submit'>Submit</Button>}
+            {submit && <Button variant="outline" type='submit'>Submit</Button>}
             {!submit &&<Button onClick={nextStep}>Next step</Button>}
           </Group>
         </Card>
