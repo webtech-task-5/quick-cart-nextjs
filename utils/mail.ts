@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendMail(sendTo: string, mail: any) {
-  console.log(mail);
+  
   try {
     const mailOptions = {
       from: "moksedur.rahman.sohan@gmail.com",
