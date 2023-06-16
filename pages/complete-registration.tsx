@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { Stepper, Button, Group, Card, Center, Text, Container } from '@mantine/core';
-import DefaultButton from '../../components/button';
+import { Stepper, Group, Card, Center, Text, Container } from '@mantine/core';
+import DefaultButton from '../components/button';
 import { useForm } from '@mantine/form';
-import DefaultTextInput from '../../components/input';
+import DefaultTextInput from '../components/input';
+import dynamic from 'next/dynamic';
+
+const DynamicStepper = dynamic(() => import('@mantine/core').then((module) => module.Stepper), {
+  ssr: false, // Ensure the component is not rendered on the server
+});
 export default function Demo() {
   const [active, setActive] = useState(1);
   const [submit, setSubmit] = useState(false);
@@ -33,6 +38,7 @@ export default function Demo() {
   const onSubmit = (values: { number: string; comname: string; bankacc: string; key: string; code: string; }) => {
     console.log(values);}
   return (
+    <DynamicStepper >
     <div style={{display:"flex", justifyContent: "center", alignContent: "center", height:"100vh", width:"100vw"}}>
       <Center>
       <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
@@ -71,6 +77,8 @@ export default function Demo() {
         </Card>
       </form>
     </Center>
+
   </div>
+  </DynamicStepper>
   );
 }
