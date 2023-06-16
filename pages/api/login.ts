@@ -14,7 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           error: "User not found",
         });
       }
-      console.log(user.email);
       if (user.password != password) {
 
         return res.status(500).json({

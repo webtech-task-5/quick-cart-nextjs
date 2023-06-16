@@ -16,9 +16,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({
       message: "sucessful",
     });
+  } else if (method == "PUT") {
+    try {
+      const {
+        email,
+        verificationCode,
+        companyName,
+        phoneNo,
+        apiKey,
+        bankAccount,
+      } = req.body;
+      const user = await User.findOne({ email });
+      if (!user || user.verificationCode != verificationCode) {
+        res.status(500).json({ message: "Something went very wrong" });
+      }
+      user.isVerified = true;
+      user.companyName = companyName;
+      user.phoneNo = phoneNo;
+      user.apiKey = apiKey;
+      user.bankAccount = bankAccount;
+      await user.save();
+
+      return res.status(200).json({ message: "saved successfully" });
+    } catch (err: any) {
+      console.log(err);
+      return res.status(500).json({ message: "something went wrong" });
+    }
   }
 };
-// Helper function 
+// Helper function
 const create4DigitCode = () => {
   let chars = "0123456789";
   let randomNumber = "";

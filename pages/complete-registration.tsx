@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stepper, Group, Card, Center, Text, Container } from '@mantine/core';
 import DefaultButton from '../components/button';
 import { useForm } from '@mantine/form';
@@ -8,35 +8,77 @@ import dynamic from 'next/dynamic';
 const DynamicStepper = dynamic(() => import('@mantine/core').then((module) => module.Stepper), {
   ssr: false, // Ensure the component is not rendered on the server
 });
+import Head from "next/head";
+import jwt from "jsonwebtoken";
+import axios from "axios";
+import { useRouter } from 'next/router'
+
 export default function Demo() {
   const [active, setActive] = useState(1);
   const [submit, setSubmit] = useState(false);
+  const [email, setEmail] = useState("");
+  const router = useRouter()
+
   const nextStep = () => {
-    if(active===2)setSubmit(true);
-    else setSubmit(false)
+    if (active === 2) setSubmit(true);
+    else setSubmit(false);
     setActive((current) => (current < 4 ? current + 1 : current));
-  }
+  };
   const prevStep = () => {
-    setSubmit(false)
+    setSubmit(false);
     setActive((current) => (current > 0 ? current - 1 : current));
-  }
+  };
 
   const form = useForm({
     initialValues: {
-      number: '',
+      number: "",
       comname: "",
       bankacc: "",
       key: "",
-      code: ""
+      code: "",
     },
 
     validate: {
-      number: (value) => (/[0-9]/.test(value) ? null : 'Invalid number'),
-      code: (value) => (/[0-9]/.test(value) ? null : 'Invalid code'),
+      number: (value) => (/[0-9]/.test(value) ? null : "Invalid number"),
+      code: (value) => (/[0-9]/.test(value) ? null : "Invalid code"),
     },
   });
-  const onSubmit = (values: { number: string; comname: string; bankacc: string; key: string; code: string; }) => {
-    console.log(values);}
+  const onSubmit = async (values: {
+    number: string;
+    comname: string;
+    bankacc: string;
+    key: string;
+    code: string;
+  }) => {
+    const data = {
+      phoneNo: values.number,
+      companyName: values.comname,
+      apiKey: values.key,
+      verificationCode: values.code,
+      bankAccount: values.bankacc,
+      email,
+    };
+    try {
+      const res = await axios.put("api/register", data);
+      console.log(res);
+      if (res.status == 200) {
+        router.back()
+      }
+    } catch (err: any) {
+      console.log(err)
+      alert("Your information doesn't match");
+    }
+  };
+  const [type, setType] = useState("seller");
+  useEffect(() => {
+    if (localStorage.getItem("token") == null) {
+      window.location.href = "/";
+    }
+    const token = localStorage.getItem("token") as string;
+    const user = jwt.decode(token) as any;
+    setType(user._doc.type);
+    setEmail(user._doc.email);
+  }, []);
   return (
     <DynamicStepper >
     <div style={{display:"flex", justifyContent: "center", alignContent: "center", height:"100vh", width:"100vw"}}>
