@@ -1,43 +1,62 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, {EffectFade, Navigation} from 'swiper';
-import Link from 'next/link';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { EffectFade, Navigation } from "swiper";
+import Link from "next/link";
 
 SwiperCore.use([EffectFade, Navigation]);
 
 const PageIntro = () => {
-
   return (
     <section className="page-intro">
       <Swiper navigation effect="fade" className="swiper-wrapper">
         <SwiperSlide>
-          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slide-1.jpg')" }}>
+          <div
+            className="page-intro__slide"
+            style={{ backgroundImage: "url('/images/slide-1.jpg')" }}
+          >
             <div className="container">
               <div className="page-intro__slide__content">
                 <h2>Welcome to Rug Emporium</h2>
-                <Link href="/products"><a className="btn-shop"><i className="icon-right"></i>Shop now</a></Link>
-
+                <Link href="/products">
+                  <a className="btn-shop">
+                    <i className="icon-right"></i>Shop now
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slide-2.jpg')" }}>
+          <div
+            className="page-intro__slide"
+            style={{ backgroundImage: "url('/images/slide-2.jpg')" }}
+          >
             <div className="container">
               <div className="page-intro__slide__content">
                 <h2>Create a Tapestry of Style</h2>
-                <Link href="/products"><a className="btn-shop"><i className="icon-right"></i>Shop now</a></Link>
+                <Link href="/products">
+                  <a className="btn-shop">
+                    <i className="icon-right"></i>Shop now
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slide-3.jpg')" }}>
+          <div
+            className="page-intro__slide"
+            style={{ backgroundImage: "url('/images/slide-3.jpg')" }}
+          >
             <div className="container">
               <div className="page-intro__slide__content">
                 <h2>Wrap Your Floors in Elegance</h2>
-                <Link href="/products"><a className="btn-shop"><i className="icon-right"></i>Shop now</a></Link>
+                <Link href="/products">
+                  <a className="btn-shop">
+                    <i className="icon-right"></i>Shop now
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -74,7 +93,7 @@ const PageIntro = () => {
         </div>
       </div>
     </section>
-  )
+  );
 };
 
-export default PageIntro
+export default PageIntro;

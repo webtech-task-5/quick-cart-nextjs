@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   image: {
-    type: String
+    type: String,
   },
   apiKey: {
     type: String,

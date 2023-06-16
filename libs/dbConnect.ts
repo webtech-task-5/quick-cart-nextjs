@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 declare global {
   var mongoose: any;
@@ -8,7 +8,7 @@ const MONGODB_URL = process.env.MONGODB_URL as string;
 
 if (!MONGODB_URL) {
   throw new Error(
-    'Please define the MONGODB_URL environment variable inside .env.local'
+    "Please define the MONGODB_URL environment variable inside .env.local"
   );
 }
 

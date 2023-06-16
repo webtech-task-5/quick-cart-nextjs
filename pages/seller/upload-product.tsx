@@ -29,14 +29,21 @@
 // };
 
 // export default UploadImage;
-import { useState } from 'react';
-import { Text, Image, SimpleGrid, AppShell } from '@mantine/core';
-import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from '@mantine/dropzone';
-import NavbarMinimal from '../../components/seller/navbar';
-
+import React, { useState } from "react";
+import { Text, Image, SimpleGrid, AppShell } from "@mantine/core";
+import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
+import NavbarMinimal from "../../components/seller/navbar";
+import Dashboard from "../../components/seller/dashboard";
+import DefaultButton from "components/button";
 export default function Demo() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [active, setActive] = useState(1);
+  const demoData = [
+    { title: "REVENUE", value: "13,456", diff: 1000 },
+    { title: "PROFIT", value: "13,456", diff: 1000 },
+    { title: "COUPON USAGE", value: "13,456", diff: 1000 },
+    { title: "NEW CUSTOMER", value: "13,456", diff: 1000 },
+  ];
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
@@ -49,15 +56,17 @@ export default function Demo() {
   });
 
   return (
-    <AppShell navbar={<NavbarMinimal active={active} setActive={setActive}/>}>
-       <Dropzone accept={IMAGE_MIME_TYPE} onDrop={setFiles}>
+    <AppShell navbar={<NavbarMinimal active={active} setActive={setActive} />}>
+      {active == 1 && <Dashboard data={demoData} />}
+      <DefaultButton text="Upload a Product" width="100%" />
+      <Dropzone accept={IMAGE_MIME_TYPE} onDrop={setFiles}>
         <Text align="center">Drop images here</Text>
       </Dropzone>
 
       <SimpleGrid
         cols={4}
-        breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
-        mt={previews.length > 0 ? 'xl' : 0}
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        mt={previews.length > 0 ? "xl" : 0}
       >
         {previews}
       </SimpleGrid>
