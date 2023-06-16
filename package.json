@@ -20,6 +20,7 @@
     "@mantine/core": "^6.0.13",
     "@mantine/form": "^6.0.13",
     "@mantine/hooks": "^6.0.13",
+    "@next/font": "^13.4.6",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^1.4.0",
     "jsonwebtoken": "^9.0.0",

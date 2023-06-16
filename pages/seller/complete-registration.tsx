@@ -36,8 +36,8 @@ export default function Demo() {
     <div style={{display:"flex", justifyContent: "center", alignContent: "center", height:"100vh", width:"100vw"}}>
       <Center>
       <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-        <Card style={{width:"800px", height:"500px"}} withBorder>
-          <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
+        <Card style={{width:"850px", height:"550px"}} withBorder>
+          <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false} mt="lg" mx="lg">
             <Stepper.Step label="First step" description="Verify your email" >
               <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
               <Text size={"xl"}>Please check your email to move forward</Text>

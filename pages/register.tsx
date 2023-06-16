@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import DefaultButton from "components/button";
 
 const RegisterPage = () => {
   const [checkCus, setCheckCus] = useState(false);
