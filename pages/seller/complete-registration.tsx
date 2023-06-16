@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Stepper, Button, Group, Card, Center, Checkbox, TextInput, Radio, Text, Container } from '@mantine/core';
+import { Stepper, Button, Group, Card, Center, Text, Container } from '@mantine/core';
+import DefaultButton from '../../components/button';
 import { useForm } from '@mantine/form';
-
+import DefaultTextInput from '../../components/input';
 export default function Demo() {
   const [active, setActive] = useState(1);
   const [submit, setSubmit] = useState(false);
@@ -40,53 +41,19 @@ export default function Demo() {
             <Stepper.Step label="First step" description="Verify your email" >
               <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
               <Text size={"xl"}>Please check your email to move forward</Text>
-              <TextInput
-              mt={"lg"}
-                withAsterisk
-                label="Verification Code"
-                placeholder="123456"
-                {...form.getInputProps('code')}
-              />
+              <DefaultTextInput label="Verification Code" placeholder="123456"  props={{mt:"lg", ...form.getInputProps('code')}}/>
               </Container>
             </Stepper.Step>
             <Stepper.Step label="Second step" description="Personal information">
             <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
-            <TextInput
-                  withAsterisk
-                  style={{width: "100%"}}
-                  p={"sm"}
-                  label="Phone Number"
-                  placeholder="+880 11111111111"
-                  {...form.getInputProps('number')}
-                />
-                <TextInput
-                  withAsterisk
-                  style={{width: "100%"}}
-                  p={"sm"}
-                  label="Your shop/company name"
-                  placeholder="ABC store"
-                  {...form.getInputProps('comname')}
-                />
+            <DefaultTextInput label="Phone Number" placeholder="+880 11111111111"  props={{...form.getInputProps('number')}}/>
+            <DefaultTextInput label="Your shop/company name" placeholder="ABC store"  props={{...form.getInputProps('comname')}}/>
               </Container>
               </Stepper.Step>
               <Stepper.Step label="Third step" description="Bank account verification">
               <Container style={{display:"flex", justifyContent: "center", alignContent: "center", flexDirection:"column", width:"700px", height:"300px"}}>
-                <TextInput
-                  withAsterisk
-                  style={{width: "100%"}}
-                  p={"sm"}
-                  label="Bank Account Number"
-                  placeholder="0000 0000 0000 0000"
-                  {...form.getInputProps('bankacc')}
-                  />
-                  <TextInput
-                    withAsterisk
-                    style={{width: "100%"}}
-                    p={"sm"}
-                    label="API key"
-                    placeholder="0000 0000 0000 0000"
-                    {...form.getInputProps('key')}
-                  />
+              <DefaultTextInput label="Bank Account Number" placeholder="0000 0000 0000 0000"  props={{...form.getInputProps('bankacc')}}/>
+              <DefaultTextInput label="API key" placeholder="0000 0000 0000 0000"  props={{...form.getInputProps('key')}}/>
               </Container>
               </Stepper.Step>
               <Stepper.Completed>
@@ -97,9 +64,9 @@ export default function Demo() {
               </Stepper.Completed>
           </Stepper>
           <Group style={{ position: 'absolute', bottom: 0, right: 0, margin: '8px' }} >
-            <Button variant="default" onClick={prevStep}>Back</Button>
-            {submit && <Button variant="outline" type='submit'>Submit</Button>}
-            {!submit &&<Button onClick={nextStep}>Next step</Button>}
+            <DefaultButton text="Back" onClick={prevStep} />
+            {submit && <DefaultButton text="Submit" props={{type:"submit"}} />}
+            {!submit && <DefaultButton text="Next Step" onClick={nextStep} />}
           </Group>
         </Card>
       </form>
