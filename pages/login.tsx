@@ -17,13 +17,19 @@ const LoginPage = () => {
       const token = res.data.token;
       localStorage.setItem("token", token);
       const type = res.data.user.type;
+      const isVerified = res.data.user.isVerified;
+      if (!isVerified) {
+        return router.push("/complete-registration");
+      }
       if (type == "seller") router.push("/seller");
       else {
         router.push("/products");
       }
+      return;
     } catch (err: any) {
       console.log(err);
       alert(err.data?.error ?? "Something went wrong.");
+      return;
     }
   };
   useEffect(() => {
