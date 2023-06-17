@@ -31,6 +31,10 @@ const ProductSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  stock: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.models.Product ||

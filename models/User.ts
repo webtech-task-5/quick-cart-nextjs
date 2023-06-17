@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema({
   },
   companyName: {
     type: String,
+    default: "Default Company Name",
   },
   bankAccount: {
     type: String,

@@ -65,7 +65,8 @@ export default function Demo() {
       const res = await axios.put("api/register", data);
       console.log(res);
       if (res.status == 200) {
-        router.back();
+        if (type == "seller") router.push("/seller");
+        else router.push("/products");
       }
     } catch (err: any) {
       console.log(err);
