@@ -3,8 +3,59 @@ import { useSelector } from "react-redux";
 import CheckoutStatus from "../../components/checkout-status";
 import CheckoutItems from "../../components/checkout/items";
 import { RootState } from "store";
+import React, { useEffect, useState } from "react";
+import jwt from "jsonwebtoken";
+import { Button, Divider, Modal, Table, Text } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import DefaultButton from "components/button";
 
+type usertype = {
+  email: string;
+  firstname: string;
+  lastname: string;
+  phoneNo: string;
+};
+
+type delAddress = {
+  address: string;
+  city: string;
+  zip: string;
+  country: string;
+};
 const CheckoutPage = () => {
+  const [user, setUser] = useState<usertype | null>(null);
+  const [deliveryAddress, setDeliveryAddress] = useState<delAddress>({
+    address: "",
+    city: "",
+    zip: "",
+    country: "Bangladesh",
+  });
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token") as string;
+    const data = jwt.decode(token) as any;
+    const user = data._doc;
+    setUser(user);
+    console.log(user);
+  }, []);
+
+  const onClick = () => {
+    if (
+      deliveryAddress.address !== "" &&
+      deliveryAddress.city !== "" &&
+      deliveryAddress.country !== "" &&
+      deliveryAddress.zip !== ""
+    )
+      setOpen(true);
+    else {
+      alert("Please fill all the fields");
+    }
+  };
+
+  const onClickModal = () => {
+    console.log({ user, deliveryAddress });
+  };
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
@@ -16,179 +67,191 @@ const CheckoutPage = () => {
   });
 
   return (
-    <Layout>
-      <section className="cart">
-        <div className="container">
-          <div className="cart__intro">
-            <h3 className="cart__title">Shipping and Payment</h3>
-            <CheckoutStatus step="checkout" />
-          </div>
+    user && (
+      <Layout>
+        <section className="cart">
+          <div className="container">
+            <div className="cart__intro">
+              <h3 className="cart__title">Shipping and Payment</h3>
+              <CheckoutStatus step="checkout" />
+            </div>
 
-          <div className="checkout-content">
-            <div className="checkout__col-6">
-              <div className="checkout__btns">
-                <button className="btn btn--rounded btn--yellow">Log in</button>
-                <button className="btn btn--rounded btn--border">
-                  Sign up
-                </button>
-              </div>
+            <div className="checkout-content">
+              <div className="checkout__col-6">
+                <div className="block">
+                  <h3 className="block__title">Shipping information</h3>
+                  <form className="form">
+                    <div className="form__input-row form__input-row--two">
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          disabled
+                          style={{ fontWeight: "lighter" }}
+                          placeholder="Email"
+                          value={user.email}
+                        />
+                      </div>
 
-              <div className="block">
-                <h3 className="block__title">Shipping information</h3>
-                <form className="form">
-                  <div className="form__input-row form__input-row--two">
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="Email"
-                      />
-                    </div>
-
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="Address"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form__input-row form__input-row--two">
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="First name"
-                      />
-                    </div>
-
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="City"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form__input-row form__input-row--two">
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="Last name"
-                      />
-                    </div>
-
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="Postal code / ZIP"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form__input-row form__input-row--two">
-                    <div className="form__col">
-                      <input
-                        className="form__input form__input--sm"
-                        type="text"
-                        placeholder="Phone number"
-                      />
-                    </div>
-
-                    <div className="form__col">
-                      <div className="select-wrapper select-form">
-                        <select>
-                          <option>Country</option>
-                          <option value="Argentina">Argentina</option>
-                        </select>
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          required
+                          type="text"
+                          placeholder="Address"
+                          onChange={(e) =>
+                            setDeliveryAddress({
+                              ...deliveryAddress,
+                              address: e.target.value,
+                            })
+                          }
+                        />
                       </div>
                     </div>
+
+                    <div className="form__input-row form__input-row--two">
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          disabled
+                          style={{ fontWeight: "lighter" }}
+                          placeholder="First name"
+                          value={user.firstname}
+                        />
+                      </div>
+
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          placeholder="City"
+                          onChange={(e) =>
+                            setDeliveryAddress({
+                              ...deliveryAddress,
+                              city: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form__input-row form__input-row--two">
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          placeholder="Last name"
+                          disabled
+                          style={{ fontWeight: "lighter" }}
+                          value={user.lastname}
+                        />
+                      </div>
+
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          placeholder="Postal code / ZIP"
+                          onChange={(e) =>
+                            setDeliveryAddress({
+                              ...deliveryAddress,
+                              zip: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form__input-row form__input-row--two">
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          placeholder="Phone number"
+                          disabled
+                          style={{ fontWeight: "lighter" }}
+                          value={user.phoneNo}
+                        />
+                      </div>
+
+                      <div className="form__col">
+                        <input
+                          className="form__input form__input--sm"
+                          type="text"
+                          placeholder="Country"
+                          disabled
+                          style={{ fontWeight: "lighter" }}
+                          value="Bangladesh"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div className="checkout__col-2">
+                <div className="block">
+                  <h3 className="block__title">Your cart</h3>
+                  <CheckoutItems />
+
+                  <div className="checkout-total">
+                    <p>Total cost</p>
+                    <h3>৳ {priceTotal}</h3>
                   </div>
-                </form>
-              </div>
-            </div>
-
-            <div className="checkout__col-4">
-              <div className="block">
-                <h3 className="block__title">Payment method</h3>
-                <ul className="round-options round-options--three">
-                  <li className="round-item">
-                    <img src="/images/logos/paypal.png" alt="Paypal" />
-                  </li>
-                  <li className="round-item">
-                    <img src="/images/logos/visa.png" alt="Paypal" />
-                  </li>
-                  <li className="round-item">
-                    <img src="/images/logos/mastercard.png" alt="Paypal" />
-                  </li>
-                  <li className="round-item">
-                    <img src="/images/logos/maestro.png" alt="Paypal" />
-                  </li>
-                  <li className="round-item">
-                    <img src="/images/logos/discover.png" alt="Paypal" />
-                  </li>
-                  <li className="round-item">
-                    <img src="/images/logos/ideal-logo.svg" alt="Paypal" />
-                  </li>
-                </ul>
-              </div>
-
-              <div className="block">
-                <h3 className="block__title">Delivery method</h3>
-                <ul className="round-options round-options--two">
-                  <li className="round-item round-item--bg">
-                    <img src="/images/logos/inpost.svg" alt="Paypal" />
-                    <p>$20.00</p>
-                  </li>
-                  <li className="round-item round-item--bg">
-                    <img src="/images/logos/dpd.svg" alt="Paypal" />
-                    <p>$12.00</p>
-                  </li>
-                  <li className="round-item round-item--bg">
-                    <img src="/images/logos/dhl.svg" alt="Paypal" />
-                    <p>$15.00</p>
-                  </li>
-                  <li className="round-item round-item--bg">
-                    <img src="/images/logos/maestro.png" alt="Paypal" />
-                    <p>$10.00</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="checkout__col-2">
-              <div className="block">
-                <h3 className="block__title">Your cart</h3>
-                <CheckoutItems />
-
-                <div className="checkout-total">
-                  <p>Total cost</p>
-                  <h3>${priceTotal}</h3>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="cart-actions cart-actions--checkout">
-            <a href="/cart" className="cart__btn-back">
-              <i className="icon-left"></i> Back
-            </a>
-            <div className="cart-actions__items-wrapper">
-              <button type="button" className="btn btn--rounded btn--border">
-                Continue shopping
-              </button>
-              <button type="button" className="btn btn--rounded btn--yellow">
-                Proceed to payment
-              </button>
+            <div className="cart-actions cart-actions--checkout">
+              <a href="/cart" className="cart__btn-back">
+                <i className="icon-left"></i>
+              </a>
+              <div className="cart-actions__items-wrapper">
+                <button type="button" className="btn btn--rounded btn--border">
+                  Continue shopping
+                </button>
+                <button
+                  type="button"
+                  className="btn btn--rounded btn--yellow"
+                  onClick={onClick}
+                >
+                  Proceed to payment
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </Layout>
+        </section>
+        <Modal
+          opened={open}
+          onClose={() => setOpen(false)}
+          title="Confirm Order"
+          centered
+          size={"lg"}
+        >
+          <Divider my="sm" variant="dashed" />
+
+          <Text>
+            <span style={{ fontWeight: "bold" }}>Recepient: </span>
+            {user.firstname} {user.lastname}
+          </Text>
+          <Text>
+            <span style={{ fontWeight: "bold" }}>Email: </span>
+            {user.email}
+          </Text>
+          <Text>
+            <span style={{ fontWeight: "bold" }}>Phone number: </span>
+            {user.phoneNo}
+          </Text>
+          <Text>
+            <span style={{ fontWeight: "bold" }}>Address: </span>
+            {deliveryAddress.address}, ZIP code: {deliveryAddress.zip},{" "}
+            {deliveryAddress.city}, {deliveryAddress.country}
+          </Text>
+          <DefaultButton text="Place order" onClick={onClickModal} />
+        </Modal>
+      </Layout>
+    )
   );
 };
 

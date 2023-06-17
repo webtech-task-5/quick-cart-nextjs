@@ -39,10 +39,10 @@ const Content = ({ product }: any) => {
 
   const addToCart = () => {
     const productToSave: ProductStoreType = {
-      id: product.id,
+      id: product._id,
       name: product.name,
       thumb: product.images ? product.images[0] : "",
-      price: product.currentPrice,
+      price: product.price,
       count: count,
       color: color,
       size: itemSize,
@@ -96,8 +96,10 @@ const Content = ({ product }: any) => {
             <div className="select-wrapper">
               <select onChange={onSelectChange}>
                 <option>Choose size</option>
-                {productsSizes.map((type) => (
-                  <option value={type.label}>{type.label}</option>
+                {productsSizes.map((type, index) => (
+                  <option value={type.label} key={index}>
+                    {type.label}
+                  </option>
                 ))}
               </select>
             </div>

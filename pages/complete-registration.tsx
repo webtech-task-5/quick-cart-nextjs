@@ -17,7 +17,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Demo() {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const [submit, setSubmit] = useState(false);
   const [email, setEmail] = useState("");
   const router = useRouter();
@@ -147,11 +147,13 @@ export default function Demo() {
                       placeholder="+880 11111111111"
                       props={{ ...form.getInputProps("number") }}
                     />
-                    <DefaultTextInput
-                      label="Your shop/company name"
-                      placeholder="ABC store"
-                      props={{ ...form.getInputProps("comname") }}
-                    />
+                    {type === "seller" && (
+                      <DefaultTextInput
+                        label="Your shop/company name"
+                        placeholder="ABC store"
+                        props={{ ...form.getInputProps("comname") }}
+                      />
+                    )}
                   </Container>
                 </Stepper.Step>
                 <Stepper.Step

@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import CheckoutStatus from "../../components/checkout-status";
 import Item from "./item";
 import { RootState } from "store";
+import React from "react";
 
 const ShoppingCart = () => {
   const { cartItems } = useSelector((state: RootState) => state.cart);
 
   const priceTotal = () => {
     let totalPrice = 0;
+    console.log({ cartItems });
     if (cartItems.length > 0) {
       cartItems.map((item) => (totalPrice += item.price * item.count));
     }
@@ -31,7 +33,7 @@ const ShoppingCart = () => {
                   <th style={{ textAlign: "left" }}>Product</th>
                   <th>Color</th>
                   <th>Size</th>
-                  <th>Ammount</th>
+                  <th>Amount</th>
                   <th>Price</th>
                   <th></th>
                 </tr>
@@ -59,15 +61,10 @@ const ShoppingCart = () => {
           <a href="/products" className="cart__btn-back">
             <i className="icon-left"></i> Continue Shopping
           </a>
-          <input
-            type="text"
-            placeholder="Promo Code"
-            className="cart__promo-code"
-          />
 
           <div className="cart-actions__items-wrapper">
             <p className="cart-actions__total">
-              Total cost <strong>${priceTotal().toFixed(2)}</strong>
+              Total cost <strong>৳ {priceTotal().toFixed(2)}</strong>
             </p>
             <a href="/cart/checkout" className="btn btn--rounded btn--yellow">
               Checkout

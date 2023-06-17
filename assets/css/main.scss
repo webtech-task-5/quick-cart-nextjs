@@ -2726,12 +2726,6 @@ h5 {
   }
   .checkout__col-6 {
     width: 100%;
-    @include breakpoint(tablet-lg) {
-      width: 53%;
-    }
-    @include breakpoint(desktop-lg) {
-      width: 41%;
-    }
   }
   .checkout__col-4 {
     width: 100%;

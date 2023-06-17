@@ -18,7 +18,7 @@ const ProductsContent = () => {
 
       {data && (
         <section className="products-list">
-          {data.map((item : any) => (
+          {data.map((item: any) => (
             <ProductItem
               id={item._id}
               name={item.name}

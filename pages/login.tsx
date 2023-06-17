@@ -2,6 +2,7 @@ import Layout from "../layouts/Main";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import React from "react";
 import { useRouter } from "next/router";
 const LoginPage = () => {
   const { register, errors } = useForm();

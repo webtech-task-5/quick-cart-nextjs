@@ -101,25 +101,25 @@ const RegisterPage = () => {
               >
                 <label htmlFor="check-cus" className={`checkbox checkbox--sm`}>
                   <input
+                    className="checkbox__check"
                     name="signed-in"
                     type="checkbox"
                     id="check-cus"
                     onChange={checkTick}
                     checked={checkCus}
                   />
-                  <span className="checkbox__check"></span>
                   <p>Register as a customer</p>
                 </label>
                 <br />
                 <label htmlFor="check-sel" className={`checkbox checkbox--sm`}>
                   <input
+                    className="checkbox__check"
                     name="signed-in"
                     type="checkbox"
                     id="check-sel"
                     checked={checkSel}
                     onChange={checkTick}
                   />
-                  <span className="checkbox__check"></span>
                   <p>Register as a seller</p>
                 </label>
               </div>

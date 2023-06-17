@@ -67,7 +67,11 @@ const Product = ({ product }: any) => {
               </button>
             </div>
 
-            <Description show={showBlock === "description"} seller = {product.sellerId} spec = {product.spec} />
+            <Description
+              show={showBlock === "description"}
+              seller={product.sellerId}
+              spec={product.spec}
+            />
             {/* <Reviews product={product} show={showBlock === "reviews"} /> */}
           </div>
         </div>

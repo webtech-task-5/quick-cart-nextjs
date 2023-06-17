@@ -19,15 +19,16 @@ import UserCard from "./user-card";
 const useStyles = createStyles((theme) => ({
   root: {
     padding: `calc(${theme.spacing.xl} * 0.5)`,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[5]
+        : theme.colors.gray[1],
   },
 
   label: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
   },
 }));
-
-
 
 export default function Dashboard({ data }: any) {
   console.log({ data });
@@ -44,10 +45,9 @@ export default function Dashboard({ data }: any) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-
       }}
     >
-      <UserCard data = {data.seller}/>
+      <UserCard data={data.seller} />
       <Container style={{ width: "100vw" }}>
         <Center>
           <SimpleGrid
