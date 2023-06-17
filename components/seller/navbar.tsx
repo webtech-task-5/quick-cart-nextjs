@@ -102,7 +102,7 @@ export default function NavbarMinimal({
   ));
 
   return (
-    <Navbar height="100vh" width={{ base: 80 }} p="md">
+    <Navbar height="100vh" width={{ base: 80 }} p="md" pt="100px">
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
           {links}

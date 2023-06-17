@@ -332,7 +332,7 @@ h5 {
 
 .site-header {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   top: 0;
   left: 0;
   z-index: 999;
@@ -1786,19 +1786,15 @@ h5 {
     @include breakpoint(phone) {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 100px;
+      margin-bottom: 50px;
     }
   }
   .product-gallery {
     @include breakpoint(phone) {
       margin-right: 110px;
+      align-items: center;
     }
-    .product-gallery__thumbs {
-      height: 300px;
-      @include breakpoint(phone) {
-        height: 491px;
-      }
-    }
+
     .product-gallery__thumb {
       @include breakpoint(phone) {
         height: calc(100% / 5 - 15px);
@@ -1946,7 +1942,6 @@ h5 {
 
 .product-gallery {
   display: flex;
-  margin-bottom: 40px;
   @include breakpoint(phone) {
     margin-bottom: 0;
   }
@@ -1970,18 +1965,8 @@ h5 {
     }
   }
   .product-gallery__image {
-    height: 300px;
+    height: auto;
     width: 100%;
-    @include breakpoint(phone) {
-      width: 476px;
-      height: 476px;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-      object-position: top center;
-      object-fit: cover;
-    }
   }
 }
 

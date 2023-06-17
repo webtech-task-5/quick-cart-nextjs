@@ -1,14 +1,14 @@
 const Breadcrumb = () => (
   <section className="breadcrumb">
     <div className="container">
-      <ul className="breadcrumb-list">
+      {/* <ul className="breadcrumb-list">
         <li>
           <a href="#">
             <i className="icon-home"></i>
           </a>
         </li>
         <li>All Products</li>
-      </ul>
+      </ul> */}
     </div>
   </section>
 );

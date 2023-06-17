@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import useOnClickOutside from "use-onclickoutside";
 import Logo from "../../assets/icons/logo";
@@ -82,7 +82,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
           <button className="site-nav__btn"><p>Account</p></button> */}
         </nav>
 
-        <div className="site-header__actions">
+        <div className="site-header__actions" style={{marginLeft: "auto !important"}}>
           <button
             ref={searchRef}
             className={`search-form-wrapper ${
@@ -100,13 +100,9 @@ const Header = ({ isErrorPage }: HeaderType) => {
                 placeholder="Enter the product you are looking for"
               />
             </form>
-            <i
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="icon-search"
-            ></i>
           </button>
           <Link href="/cart">
-            <button className="btn-cart">
+            <button className="btn-cart" >
               <i className="icon-cart"></i>
               {cartItems.length > 0 && (
                 <span className="btn-cart__count">{cartItems.length}</span>
