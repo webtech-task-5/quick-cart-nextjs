@@ -9,7 +9,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
   if (method == "POST") {
     try {
-      const { name, category, price, imagelist, spec, sellerId } = req.body;
+      const { name, category, price, imagelist, spec, sellerId, stock } =
+        req.body;
 
       const images = imagelist;
       const product = new Product({
@@ -18,6 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         price,
         images,
         spec,
+        stock,
         sellerId,
       });
       await product.save();

@@ -1,9 +1,25 @@
 import ProductsCarousel from "./carousel";
-import useSwr from "swr";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 const ProductsFeatured = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data } = useSwr("/api/products", fetcher);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get("/api/product");
+      let messData = res.data;
+      messData.map((item: any) => {
+        item.id = item._id;
+        item.currentPrice = item.price;
+        item.images = item.images;
+        item.discount = "10";
+        item.color = "red";
+        item.price = item.price;
+      });
+
+      setData(messData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <section className="section section-products-featured">

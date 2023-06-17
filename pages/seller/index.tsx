@@ -6,6 +6,7 @@ import UploadProduct from "../../components/seller/upload-product";
 import Head from "next/head";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { useRouter } from "next/router";
 export default function Demo() {
   const [active, setActive] = useState(1);
   const demoData: { title: string; value: string; diff: number }[] = [
@@ -17,11 +18,14 @@ export default function Demo() {
 
   console.log({ demoData });
   const [seller, setSeller] = useState(null);
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token") as string;
       const decoded = jwt.decode(token) as any;
       const id = decoded._doc?._id;
+      const type = decoded._doc?.type;
+      if (type !== "seller") return router.push("/");
       const res = await axios.get("/api/seller?id=" + id);
       console.log(res.data);
       setSeller(res.data);

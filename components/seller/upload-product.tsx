@@ -43,6 +43,7 @@ export default function UploadProduct() {
     spec?: string;
     category?: string | null;
     imagelist?: any;
+    stock?: number;
   }) => {
     try {
       let urlList = [];
@@ -144,8 +145,13 @@ export default function UploadProduct() {
 
             <DefaultTextInput
               label="price"
-              placeholder="+880 11111111111"
+              placeholder="100 ৳"
               props={{ ...form.getInputProps("price") }}
+            />
+            <DefaultTextInput
+              label="stock"
+              placeholder="100 pieces"
+              props={{ ...form.getInputProps("stock") }}
             />
             <Textarea
               label="Product Specification"
