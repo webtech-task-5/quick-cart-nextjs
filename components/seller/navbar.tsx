@@ -78,7 +78,7 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 const mockdata = [
   { icon: IconHome2, label: "Home" },
   { icon: IconGauge, label: "Dashboard" },
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
+  { icon: IconDeviceDesktopAnalytics, label: "Upload a Product" },
   { icon: IconCalendarStats, label: "Releases" },
   { icon: IconUser, label: "Profile" },
   { icon: IconFingerprint, label: "Security" },
