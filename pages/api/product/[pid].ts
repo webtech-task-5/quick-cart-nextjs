@@ -1,13 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
-// fake data
-import products from "../../../utils/data/products";
-
-export default (req: NextApiRequest, res: NextApiResponse) => {
+import Product from "models/Product";
+import dbConnect from "libs/dbConnect";
+import User from "models/User";
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect();
   const {
     query: { pid },
   } = req;
-
-  const product = products.find((x) => x.id === pid);
-  res.status(200).json(product);
+  if (req.method === "GET") {
+    const product = await Product.findById(pid).populate({
+      path: "sellerId",
+      model: User,
+    });
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  }
 };

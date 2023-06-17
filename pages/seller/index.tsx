@@ -3,6 +3,7 @@ import { Text, Image, SimpleGrid, AppShell } from "@mantine/core";
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
+import Head from "next/head";
 export default function Demo() {
   const [active, setActive] = useState(1);
   const demoData: { title: string; value: string; diff: number }[] = [
@@ -13,9 +14,16 @@ export default function Demo() {
   ];
   console.log({ demoData });
   return (
-    <AppShell navbar={<NavbarMinimal active={active} setActive={setActive} />}>
-      {active == 1 && <Dashboard data={{ data: demoData }} />}
-      {active == 2 && <UploadProduct />}
-    </AppShell>
+    <>
+      <Head>
+        <title>Seller Dashboard</title>
+      </Head>
+      <AppShell
+        navbar={<NavbarMinimal active={active} setActive={setActive} />}
+      >
+        {active == 1 && <Dashboard data={{ data: demoData }} />}
+        {active == 2 && <UploadProduct />}
+      </AppShell>
+    </>
   );
 }

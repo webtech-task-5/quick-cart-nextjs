@@ -10,7 +10,7 @@ import Content from "../../components/product-single/content";
 import Description from "../../components/product-single/description";
 import Reviews from "../../components/product-single/reviews";
 import { server } from "../../utils/server";
-
+import axios from "axios";
 // types
 import { ProductType } from "types";
 
@@ -20,8 +20,9 @@ type ProductPageType = {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const pid = query.pid;
-  const res = await fetch(`${server}/api/product/${pid}`);
-  const product = await res.json();
+
+  const res = await axios.get(`${server}/api/product/${pid}`);
+  const product = res.data;
 
   return {
     props: {
@@ -30,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-const Product = ({ product }: ProductPageType) => {
+const Product = ({ product }: any) => {
   const [showBlock, setShowBlock] = useState("description");
 
   return (
@@ -66,8 +67,8 @@ const Product = ({ product }: ProductPageType) => {
               </button>
             </div>
 
-            <Description show={showBlock === "description"} />
-            <Reviews product={product} show={showBlock === "reviews"} />
+            <Description show={showBlock === "description"} seller = {product.sellerId} spec = {product.spec} />
+            {/* <Reviews product={product} show={showBlock === "reviews"} /> */}
           </div>
         </div>
       </section>
