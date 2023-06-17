@@ -43,7 +43,7 @@ export default function Dashboard({ data }: any) {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start",
+        alignItems: "center",
 
       }}
     >

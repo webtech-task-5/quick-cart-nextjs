@@ -2,6 +2,8 @@ import Layout from "../layouts/Main";
 import PageIntro from "../components/page-intro";
 import ProductsFeatured from "../components/products-featured";
 import Footer from "../components/footer";
+import React from 'react'
+
 
 const IndexPage = () => {
   return (
