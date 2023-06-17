@@ -15,14 +15,28 @@ const app = initializeApp(firebaseConfig);
 
 const storage = getStorage(app);
 
-export const uploadImage = (files: Blob | Uint8Array | ArrayBuffer) => {
+// export const uploadImage = (files: Blob | Uint8Array | ArrayBuffer): string | undefined => {
+//   if (files) {
+//     const folderPath = `image/${Date.now()}`;
+//     const imageRef = ref(storage, folderPath);
+//     uploadBytes(imageRef, files).then((snapshot) => {
+//       getDownloadURL(snapshot.ref).then(async (url) => {
+//         // return url;
+//         alert("click me : - " + url);
+//       });
+//     });
+//   } else return "";
+// };
+
+export const uploadImage = async (files: Blob | Uint8Array | ArrayBuffer): Promise<string | undefined> => {
   if (files) {
     const folderPath = `image/${Date.now()}`;
     const imageRef = ref(storage, folderPath);
-    uploadBytes(imageRef, files).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then(async (url) => {
-        alert("click me : - " + url);
-      });
-    });
-  } else return;
+
+      const snapshot = await uploadBytes(imageRef, files);
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+  } else {
+    return undefined;
+  }
 };

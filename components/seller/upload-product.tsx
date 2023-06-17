@@ -20,7 +20,7 @@ import DefaultButton from "components/button";
 export default function UploadProduct() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [value, setValue] = useState<string | null>("rug");
-  const [imgList, setImgList] = useState<any>([]);
+  const imgList: string[] = []
   const form = useForm({
     initialValues: {
       name: "",
@@ -41,18 +41,21 @@ export default function UploadProduct() {
     price?: number;
     spec?: string;
     category?: string | null;
-    imagelist?: null;
-    number?: any;
-    comname?: any;
-    key?: any;
-    code?: any;
-    bankacc?: any;
+    imagelist?: any;
   }) => {
+    values.imagelist = files.map(async (file) =>{
+       const abc = await upload(file)
+       console.log({abc})
+
+      });
     console.log({ values });
   };
-
-  const previews = files.map((file, index) => {
-    setImgList((prev: void[]) => prev.push(uploadImage(file)));
+const upload = async (file: Blob | ArrayBuffer) => {
+  const img: string | undefined = await  uploadImage(file)
+  console.log({img})
+  if(img)imgList.push(img)
+}
+  const previews = files.map( (file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
       <Image
@@ -97,13 +100,13 @@ export default function UploadProduct() {
               variant="filled"
               radius={"lg"}
               px="lg"
-              sx={{
+              style={{
                 color: "#000000",
                 cursor: "pointer",
                 fontSize: "13px",
                 borderColor: "#D8D8D8",
                 // display: "inline-block",
-                fontWeight: "610",
+                fontWeight: "600",
                 display: "block",
                 marginLeft: "auto",
                 marginRight: "auto",
