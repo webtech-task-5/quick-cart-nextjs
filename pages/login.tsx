@@ -21,6 +21,7 @@ const LoginPage = () => {
       if (!isVerified) {
         return router.push("/complete-registration");
       }
+
       if (type == "seller") router.push("/seller");
       else {
         router.push("/products");

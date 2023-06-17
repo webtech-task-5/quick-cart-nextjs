@@ -27,11 +27,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface StatsGridIconsProps {
-  data: { title: string; value: string; diff: number }[];
-}
 
-export default function Dashboard({ data }: { data: StatsGridIconsProps }) {
+
+export default function Dashboard({ data }: any) {
   console.log({ data });
   const theme = useMantineTheme();
   const { classes } = useStyles();
@@ -49,7 +47,7 @@ export default function Dashboard({ data }: { data: StatsGridIconsProps }) {
 
       }}
     >
-      <UserCard />
+      <UserCard data = {data.seller}/>
       <Container style={{ width: "100vw" }}>
         <Center>
           <SimpleGrid

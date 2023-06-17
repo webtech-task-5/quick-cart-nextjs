@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Image, SimpleGrid, AppShell, Grid, Card } from "@mantine/core";
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
 import Head from "next/head";
+import axios from "axios";
+import jwt from "jsonwebtoken";
 export default function Demo() {
   const [active, setActive] = useState(1);
   const demoData: { title: string; value: string; diff: number }[] = [
@@ -12,18 +14,48 @@ export default function Demo() {
     { title: "COUPON USAGE", value: "13,456", diff: 1000 },
     { title: "NEW CUSTOMER", value: "13,456", diff: 1000 },
   ];
+
   console.log({ demoData });
+  const [seller, setSeller] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token") as string;
+      const decoded = jwt.decode(token) as any;
+      const id = decoded._doc?._id;
+      const res = await axios.get("/api/seller?id=" + id);
+      console.log(res.data);
+      setSeller(res.data);
+    };
+    if (!seller) fetchData();
+  }, [seller]);
+
   return (
     <>
       <Head>
         <title>Seller Dashboard</title>
       </Head>
-      <AppShell
-        navbar={<NavbarMinimal active={active} setActive={setActive} />}
-      >
-        {active == 1 && <Dashboard data={{ data: demoData }} />}
-        {active == 2 && <UploadProduct />}
-      </AppShell>
+      {seller && (
+        <AppShell
+          navbar={<NavbarMinimal active={active} setActive={setActive} />}
+        >
+          {active == 1 && (
+            <Dashboard data={{ data: demoData, seller: seller }} />
+          )}
+          {active == 2 && <UploadProduct />}
+        </AppShell>
+      )}
+      {!seller && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          Loading...
+        </div>
+      )}
     </>
   );
 }
