@@ -6,8 +6,9 @@ import { RootState } from "store";
 import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import { Button, Divider, Modal, Table, Text } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
+
 import DefaultButton from "components/button";
+import axios from "axios";
 
 type usertype = {
   email: string;
@@ -31,13 +32,12 @@ const CheckoutPage = () => {
     country: "Bangladesh",
   });
   const [open, setOpen] = useState<boolean>(false);
-
+  const { cartItems } = useSelector((state: RootState) => state.cart);
   useEffect(() => {
     const token = localStorage.getItem("token") as string;
     const data = jwt.decode(token) as any;
     const user = data._doc;
     setUser(user);
-    console.log(user);
   }, []);
 
   const onClick = () => {
@@ -53,8 +53,24 @@ const CheckoutPage = () => {
     }
   };
 
-  const onClickModal = () => {
-    console.log({ user, deliveryAddress });
+  const onClickModal = async () => {
+    try {
+      const userId = user?._id;
+      const order = {
+        userId,
+        deliveryAddress,
+        cartItems,
+        total : priceTotal
+      };
+      
+       const res = await axios.post("/api/order", order);
+      if(res.status === 200) alert("Order placed successfully");
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
+    }
+    
   };
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;

@@ -16,6 +16,14 @@ const ShoppingCart = () => {
 
     return totalPrice;
   };
+  const checkCheckout = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "/cart/checkout";
+    } else {
+      window.location.href = "/login";
+    }
+  };
 
   return (
     <section className="cart">
@@ -66,9 +74,12 @@ const ShoppingCart = () => {
             <p className="cart-actions__total">
               Total cost <strong>৳ {priceTotal().toFixed(2)}</strong>
             </p>
-            <a href="/cart/checkout" className="btn btn--rounded btn--yellow">
+            <button
+              className="btn btn--rounded btn--yellow"
+              onClick={checkCheckout}
+            >
               Checkout
-            </a>
+            </button>
           </div>
         </div>
       </div>

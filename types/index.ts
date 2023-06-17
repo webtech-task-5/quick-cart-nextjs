@@ -49,6 +49,7 @@ export type ProductStoreType = {
   count: number;
   color: string;
   size: string;
+  sellerId: string;
 };
 
 export type GtagEventType = {
