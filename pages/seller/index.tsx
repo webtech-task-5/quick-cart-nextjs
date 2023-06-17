@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Text, Image, SimpleGrid, AppShell } from "@mantine/core";
+import { Text, Image, SimpleGrid, AppShell, Grid, Card } from "@mantine/core";
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
+import UserCard from "../../components/seller/user-card";
 export default function Demo() {
   const [active, setActive] = useState(1);
   const demoData: { title: string; value: string; diff: number }[] = [

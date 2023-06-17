@@ -28,14 +28,21 @@ const storage = getStorage(app);
 //   } else return "";
 // };
 
-export const uploadImage = async (files: Blob | Uint8Array | ArrayBuffer): Promise<string | undefined> => {
+export const uploadImage = async (
+  files: Blob | Uint8Array | ArrayBuffer
+): Promise<string | undefined> => {
   if (files) {
     const folderPath = `image/${Date.now()}`;
     const imageRef = ref(storage, folderPath);
 
+    try {
       const snapshot = await uploadBytes(imageRef, files);
       const url = await getDownloadURL(snapshot.ref);
       return url;
+    } catch (error) {
+      console.log("Error uploading image:", error);
+      return undefined;
+    }
   } else {
     return undefined;
   }

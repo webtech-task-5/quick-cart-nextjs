@@ -15,9 +15,11 @@ import {
 } from "@mantine/core";
 import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
 import React from "react";
+import UserCard from "./user-card";
 const useStyles = createStyles((theme) => ({
   root: {
     padding: `calc(${theme.spacing.xl} * 0.5)`,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
   },
 
   label: {
@@ -38,8 +40,17 @@ export default function Dashboard({ data }: { data: StatsGridIconsProps }) {
     BASE_HEIGHT / children - spacing * ((children - 1) / children);
 
   return (
-    <div className={classes.root} style={{ width: "100vw" }}>
-      <Container my="md" style={{ width: "100vw" }}>
+    <div
+      className={classes.root}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+
+      }}
+    >
+      <UserCard />
+      <Container style={{ width: "100vw" }}>
         <Center>
           <SimpleGrid
             cols={2}
@@ -65,7 +76,7 @@ export default function Dashboard({ data }: { data: StatsGridIconsProps }) {
               <Card
                 withBorder
                 radius="md"
-                padding="lg"
+                // paddingx="lg"
                 sx={(theme) => ({
                   backgroundColor:
                     theme.colorScheme === "dark"

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, React } from "react";
 import Document, {
   Head,
   Main,
@@ -31,6 +31,11 @@ export default class CustomDocument extends Document<DocumentProps> {
     return (
       <html lang="en">
         <Head>
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"
+            rel="stylesheet"
+          />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
           {/* We only want to add the scripts if in production */}
           {isProduction && (
             <Fragment>
