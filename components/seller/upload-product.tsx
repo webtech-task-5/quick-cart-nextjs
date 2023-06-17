@@ -21,7 +21,6 @@ import jwt from "jsonwebtoken";
 export default function UploadProduct() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [value, setValue] = useState<string | null>("rug");
-  const imgList: string[] = [];
   const form = useForm({
     initialValues: {
       name: "",

@@ -46,6 +46,7 @@ const Content = ({ product }: any) => {
       count: count,
       color: color,
       size: itemSize,
+      sellerId: product.sellerId.bankAccount,
     };
 
     const productStore = {

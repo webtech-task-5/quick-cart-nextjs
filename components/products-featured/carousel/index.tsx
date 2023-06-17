@@ -27,7 +27,7 @@ type ProductsCarouselType = {
 
 //TODO: fix this
 const ProductsCarousel = ({ products }: ProductsCarouselType) => {
-  if (!products) return <div>Loading</div>;
+  if (!products) return <div>Loading...</div>;
 
   return (
     <div className="products-carousel">
