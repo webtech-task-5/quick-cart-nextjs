@@ -33,7 +33,7 @@ const LoginPage = () => {
     }
   };
   useEffect(() => {
-    if (localStorage.getItem("token") == null) {
+    if (localStorage.getItem("token") != null) {
       router.push("/");
     }
   }, []);
