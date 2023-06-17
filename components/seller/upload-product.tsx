@@ -5,7 +5,7 @@ import {
   Card,
   Center,
   Text,
-  Container,
+  Loader,
   SimpleGrid,
   Image,
   Select,
@@ -16,7 +16,8 @@ import DefaultTextInput from "../../components/input";
 import { uploadImage } from "../../libs/Firebase";
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import DefaultButton from "components/button";
-
+import axios from "axios";
+import jwt from "jsonwebtoken";
 export default function UploadProduct() {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [value, setValue] = useState<string | null>("rug");
@@ -43,13 +44,26 @@ export default function UploadProduct() {
     category?: string | null;
     imagelist?: any;
   }) => {
-    let urlList = [];
-    for (let i = 0; i < files.length; i++) {
-      let url = await upload(files[i]);
-      urlList.push(url);
+    try {
+      let urlList = [];
+      for (let i = 0; i < files.length; i++) {
+        let url = await upload(files[i]);
+        urlList.push(url);
+      }
+      values.imagelist = urlList;
+      const token = localStorage.getItem("token") as string;
+      const user = jwt.decode(token) as any;
+      const sellerId = user?._doc?._id;
+      const res = await axios.post("/api/product", {
+        ...values,
+        sellerId,
+      });
+
+      alert("Product uploaded successfully");
+    } catch (err: any) {
+      console.log(err);
+      alert(err.data?.error ?? "Something went wrong.");
     }
-    values.imagelist = urlList;
-    console.log(values);
   };
   const upload = async (file: Blob | ArrayBuffer) => {
     const img: string | undefined = await uploadImage(file);
@@ -133,7 +147,6 @@ export default function UploadProduct() {
               placeholder="+880 11111111111"
               props={{ ...form.getInputProps("price") }}
             />
-
             <Textarea
               label="Product Specification"
               radius={"lg"}

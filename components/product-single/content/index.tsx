@@ -13,7 +13,7 @@ type ProductContent = {
   product: ProductType;
 };
 
-const Content = ({ product }: ProductContent) => {
+const Content = ({ product }: any) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState<number>(1);
   const [color, setColor] = useState<string>("");
@@ -61,13 +61,13 @@ const Content = ({ product }: ProductContent) => {
       <div className="product-content__intro">
         <h5 className="product__id">
           Product ID:<br></br>
-          {product.id}
+          {product._id}
         </h5>
         <span className="product-on-sale">Sale</span>
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${product.currentPrice}</h4>
+          <h4>${product.price}</h4>
           {product.discount && <span>${product.price}</span>}
         </div>
       </div>

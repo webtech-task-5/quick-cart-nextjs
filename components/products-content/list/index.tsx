@@ -1,27 +1,31 @@
-import useSwr from "swr";
 import ProductItem from "../../product-item";
 import ProductsLoading from "./loading";
-import { ProductTypeList } from "types";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
 const ProductsContent = () => {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data, error } = useSwr("/api/products", fetcher);
-
-  if (error) return <div>Failed to load users</div>;
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("/api/product");
+      setData(result.data);
+      console.log(result.data);
+    };
+    fetchData();
+  }, []);
   return (
     <>
       {!data && <ProductsLoading />}
 
       {data && (
         <section className="products-list">
-          {data.map((item: ProductTypeList) => (
+          {data.map((item : any) => (
             <ProductItem
-              id={item.id}
+              id={item._id}
               name={item.name}
               price={item.price}
               color={item.color}
-              currentPrice={item.currentPrice}
-              key={item.id}
+              currentPrice={item.price}
+              key={item._id}
               images={item.images}
             />
           ))}
