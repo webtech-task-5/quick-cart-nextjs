@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import productsColors from "./../../../utils/data/products-colors";
 import productsSizes from "./../../../utils/data/products-sizes";
 import CheckboxColor from "./../../products-filter/form-builder/checkbox-color";
@@ -63,12 +63,12 @@ const Content = ({ product }: any) => {
           Product ID:<br></br>
           {product._id}
         </h5>
-        <span className="product-on-sale">Sale</span>
+        {/* <span className="product-on-sale">Sale</span> */}
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${product.price}</h4>
-          {product.discount && <span>${product.price}</span>}
+          <h4>৳ {product.price}</h4>
+          {product.discount && <span>৳ {product.price}</span>}
         </div>
       </div>
 

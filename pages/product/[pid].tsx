@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Footer from "../../components/footer";
 import Layout from "../../layouts/Main";
 import Breadcrumb from "../../components/breadcrumb";

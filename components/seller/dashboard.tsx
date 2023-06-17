@@ -45,7 +45,7 @@ export default function Dashboard({ data }: { data: StatsGridIconsProps }) {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start",
+        alignItems: "center",
 
       }}
     >

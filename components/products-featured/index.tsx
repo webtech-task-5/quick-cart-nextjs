@@ -1,6 +1,6 @@
 import ProductsCarousel from "./carousel";
 import useSwr from "swr";
-
+import React from 'react'
 const ProductsFeatured = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data } = useSwr("/api/products", fetcher);
