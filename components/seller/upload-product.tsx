@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import DefaultTextInput from "../../components/input";
-import {uploadImage} from "../../libs/Firebase"
+import { uploadImage } from "../../libs/Firebase";
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import DefaultButton from "components/button";
 
@@ -31,17 +31,28 @@ export default function UploadProduct() {
     },
 
     validate: {
-        name: (value) => (value ? null : "Invalid name"),
-        price: (value) => (value ? null : "Invalid price"),
-        spec: (value) => (value ? null : "Invalid specifications"),
+      name: (value) => (value ? null : "Invalid name"),
+      price: (value) => (value ? null : "Invalid price"),
+      spec: (value) => (value ? null : "Invalid specifications"),
     },
   });
-  const onSubmit = async (values: { name?: string; price?: number; spec?: string; category?: string | null; imagelist?: null; number?: any; comname?: any; key?: any; code?: any; bankacc?: any; }) => {
+  const onSubmit = async (values: {
+    name?: string;
+    price?: number;
+    spec?: string;
+    category?: string | null;
+    imagelist?: null;
+    number?: any;
+    comname?: any;
+    key?: any;
+    code?: any;
+    bankacc?: any;
+  }) => {
     console.log({ values });
   };
 
   const previews = files.map((file, index) => {
-    setImgList((prev: void[]) => prev.push(uploadImage(file)))
+    setImgList((prev: void[]) => prev.push(uploadImage(file)));
     const imageUrl = URL.createObjectURL(file);
     return (
       <Image
@@ -92,22 +103,21 @@ export default function UploadProduct() {
                 fontSize: "13px",
                 borderColor: "#D8D8D8",
                 // display: "inline-block",
-                fontWeight: "610 !important",
+                fontWeight: "610",
                 display: "block",
                 marginLeft: "auto",
                 marginRight: "auto",
-                height: "50px !important",
+                height: "50px",
                 marginTop: "20px",
                 marginBottom: "20px",
               }}
               placeholder="Pick one"
-
               data={[
                 { value: "rug", label: "Rug" },
                 { value: "doormat", label: "Doormat" },
                 { value: "curtain", label: "Curtain" },
               ]}
-                {...form.getInputProps("category")}
+              {...form.getInputProps("category")}
             />
             <DefaultTextInput
               label="Product name"
@@ -126,9 +136,9 @@ export default function UploadProduct() {
               radius={"lg"}
               px="lg"
               placeholder="Write about your product"
-              { ...form.getInputProps("spec") }
+              {...form.getInputProps("spec")}
             />
-            <DefaultButton text="Submit" props={{type:'submit'}}/>
+            <DefaultButton text="Submit" props={{ type: "submit" }} />
           </Card>
         </form>
       </Center>
