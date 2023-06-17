@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Text, Image, SimpleGrid, AppShell, Grid, Card, Container } from "@mantine/core";
+import {
+  Text,
+  Image,
+  SimpleGrid,
+  AppShell,
+  Grid,
+  Card,
+  Container,
+} from "@mantine/core";
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
@@ -44,17 +52,14 @@ export default function Demo() {
         <AppShell
           navbar={<NavbarMinimal active={active} setActive={setActive} />}
         >
-          <Header/>
-          <div >
-          {active == 0 && <Products/>}
-          {active == 1 && (
-            <Dashboard data={{ data: demoData, seller: seller }} />
-          )}
-          {active == 2 && <UploadProduct />}
+          <Header />
+          <div>
+            {active == 0 && <Products />}
+            {active == 1 && (
+              <Dashboard data={{ data: demoData, seller: seller }} />
+            )}
+            {active == 2 && <UploadProduct />}
           </div>
-
-
-
         </AppShell>
       )}
       {!seller && (

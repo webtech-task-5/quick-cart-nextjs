@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         userId,
         bankAccountNumber: user.bankAccount,
         apiKey: user.apiKey,
-       seller: cart,
+        seller: cart,
         total,
       };
       const resBank = await axios.post(

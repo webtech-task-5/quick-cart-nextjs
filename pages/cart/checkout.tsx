@@ -60,17 +60,16 @@ const CheckoutPage = () => {
         userId,
         deliveryAddress,
         cartItems,
-        total : priceTotal
+        total: priceTotal,
       };
-      
-       const res = await axios.post("/api/order", order);
-      if(res.status === 200) alert("Order placed successfully");
+
+      const res = await axios.post("/api/order", order);
+      if (res.status === 200) alert("Order placed successfully");
       console.log(res);
     } catch (err) {
       console.log(err);
       alert("Something went wrong");
     }
-    
   };
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;

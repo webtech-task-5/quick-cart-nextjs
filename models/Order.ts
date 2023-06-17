@@ -20,7 +20,7 @@ const OrderSchema = new mongoose.Schema({
     default: "Pending",
   },
   sellerId: {
-    type : "String",
+    type: "String",
     required: true,
   },
   address: {

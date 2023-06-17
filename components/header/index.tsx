@@ -82,7 +82,10 @@ const Header = ({ isErrorPage }: HeaderType) => {
           <button className="site-nav__btn"><p>Account</p></button> */}
         </nav>
 
-        <div className="site-header__actions" style={{marginLeft: "auto !important"}}>
+        <div
+          className="site-header__actions"
+          style={{ marginLeft: "auto !important" }}
+        >
           <button
             ref={searchRef}
             className={`search-form-wrapper ${
@@ -102,7 +105,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
             </form>
           </button>
           <Link href="/cart">
-            <button className="btn-cart" >
+            <button className="btn-cart">
               <i className="icon-cart"></i>
               {cartItems.length > 0 && (
                 <span className="btn-cart__count">{cartItems.length}</span>
