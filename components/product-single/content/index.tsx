@@ -74,7 +74,7 @@ const Content = ({ product }: any) => {
       </div>
 
       <div className="product-content__filters">
-        <div className="product-filter-item">
+        {/* <div className="product-filter-item">
           <div className="checkbox-color-wrapper">
             {productsColors.map((type) => (
               <CheckboxColor
@@ -87,8 +87,8 @@ const Content = ({ product }: any) => {
               />
             ))}
           </div>
-        </div>
-        <div className="product-filter-item">
+        </div> */}
+        {/* <div className="product-filter-item">
           <h5>
             Size: <strong>See size table</strong>
           </h5>
@@ -104,11 +104,12 @@ const Content = ({ product }: any) => {
               </select>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="product-filter-item">
           <h5>Quantity:</h5>
           <div className="quantity-buttons">
             <div className="quantity-button">
+
               <button
                 type="button"
                 onClick={() => setCount(count - 1)}
@@ -133,6 +134,7 @@ const Content = ({ product }: any) => {
             >
               Add to cart
             </button>
+
             <button
               type="button"
               onClick={toggleFav}
