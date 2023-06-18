@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
-  Stepper,
-  Group,
   Card,
   Center,
   Text,
-  Loader,
   SimpleGrid,
   Image,
   Select,
@@ -18,16 +15,36 @@ import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import DefaultButton from "components/button";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-export default function UploadProduct() {
+import { GetServerSideProps } from "next";
+import { server } from "utils/server";
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  //  query string fetch id ?id=123
+  const pid = query.id;
+  console.log(pid);
+
+  const res = await axios.get(`${server}/api/product/${pid}`);
+  const product = res.data;
+
+  return {
+    props: {
+      product,
+    },
+  };
+};
+export default function UploadProduct({ product }: any) {
+  const [images, setImages] = useState<FileWithPath[]>(product.images);
   const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [value, setValue] = useState<string | null>("rug");
+  const [value, setValue] = useState<string | null>(product.category);
+  console.log(product);
   const form = useForm({
     initialValues: {
-      name: "",
-      price: 0,
-      spec: "",
+      name: product.name,
+      price: product.price,
+      spec: product.spec,
       category: value,
-      imagelist: null,
+      imagelist: product.images,
+      stock: product.stock,
     },
 
     validate: {
@@ -51,14 +68,19 @@ export default function UploadProduct() {
         urlList.push(url);
       }
       values.imagelist = urlList;
+      values.imagelist = [...values.imagelist, ...images];
       const token = localStorage.getItem("token") as string;
       const user = jwt.decode(token) as any;
       const sellerId = user?._doc?._id;
-      const res = await axios.post("/api/product", {
+      const res = await axios.put(`/api/product/${product._id}`, {
         ...values,
         sellerId,
       });
-
+      if (res.status === 200) {
+        alert("Product updated successfully");
+        // redirect to /products/[pid]
+        window.location.href = `/product/${product._id}`;
+      }
       alert("Product uploaded successfully");
     } catch (err: any) {
       console.log(err);
@@ -69,16 +91,33 @@ export default function UploadProduct() {
     const img: string | undefined = await uploadImage(file);
     return img;
   };
-  const previews = files.map((file, index) => {
-    const imageUrl = URL.createObjectURL(file);
-    return (
-      <Image
-        key={index}
-        src={imageUrl}
-        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
-      />
-    );
+  let previews = images.map((file, index) => {
+    if (typeof file === "string") return <Image key={index} src={file} />;
+    else {
+      const imageUrl = URL.createObjectURL(file);
+      return (
+        <Image
+          key={index}
+          src={imageUrl}
+          imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        />
+      );
+    }
   });
+  const newPreviews = files.map((file, index) => {
+    if (typeof file === "string") return <Image key={index} src={file} />;
+    else {
+      const imageUrl = URL.createObjectURL(file);
+      return (
+        <Image
+          key={index}
+          src={imageUrl}
+          imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        />
+      );
+    }
+  });
+
   return (
     <div
       style={{
@@ -106,6 +145,7 @@ export default function UploadProduct() {
               mt={previews.length > 0 ? "xl" : 0}
             >
               {previews}
+              {newPreviews}
             </SimpleGrid>
             <Select
               label="Product category"

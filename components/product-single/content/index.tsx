@@ -8,13 +8,17 @@ import { addProduct } from "store/reducers/cart";
 import { toggleFavProduct } from "store/reducers/user";
 import { ProductType, ProductStoreType } from "types";
 import { RootState } from "store";
+<<<<<<< HEAD
 import { Badge } from "@mantine/core";
 
+=======
+import { useRouter } from "next/router";
+>>>>>>> af1115f424f3996fe3d9aad80de7d19dfaee4ff9
 type ProductContent = {
   product: ProductType;
 };
 
-const Content = ({ product }: any) => {
+const Content = ({ product, edit }: any) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState<number>(1);
   const [color, setColor] = useState<string>("");
@@ -57,7 +61,7 @@ const Content = ({ product }: any) => {
 
     dispatch(addProduct(productStore));
   };
-
+  const router = useRouter();
   return (
     <section className="product-content">
       <div className="product-content__intro">
@@ -135,11 +139,20 @@ const Content = ({ product }: any) => {
             >
               Add to cart
             </button>
-
-            <button className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center" onClick={() => {}}>
-  <img className="w-5 h-5 object-cover" src="/images/icons/edit.png" alt="Edit Icon" />
-</button>
-
+            {edit && (
+              <button
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center"
+                onClick={() => {
+                  router.push(`/product/edit?id=${product._id}`);
+                }}
+              >
+                <img
+                  className="w-5 h-5 object-cover"
+                  src="/images/icons/edit.png"
+                  alt="Edit Icon"
+                />
+              </button>
+            )}
           </div>
         </div>
       </div>
