@@ -35,6 +35,10 @@ const OrderSchema = new mongoose.Schema({
   country: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: () => Date.now(),
+  },
 });
 
 export default mongoose.models.Order || mongoose.model("Order", OrderSchema);

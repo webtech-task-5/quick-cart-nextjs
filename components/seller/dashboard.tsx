@@ -65,7 +65,7 @@ export default function Dashboard({
                       <GetChild
                         height={getSubHeight(3, px(theme.spacing.md))}
                         stat={stat}
-                        key={stat}
+                        key={stat.title}
                       />
                     );
                 }

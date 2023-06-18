@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../libs/dbConnect";
 import User from "../../models/User";
-import jwt from "jsonwebtoken";
 import Order from "../../models/Order";
+import Product from "../../models/Product";
 import axios from "axios";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -48,7 +48,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           productId: item.id,
           quantity: item.count,
           sellerId: item.sellerId,
-          status: "requested",
+          status: "Pending",
           address: deliveryAddress.address,
           city: deliveryAddress.city,
           zip: deliveryAddress.zip,
@@ -64,5 +64,70 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         error: "Something went wrong",
       });
     }
+  } else if (method == "GET") {
+    try {
+      const { bankId, type } = req.query;
+      const orders = await Order.find({
+        sellerId: bankId,
+      }).populate({
+        path: "productId",
+        model: "Product",
+      });
+      res.status(200).json(orders);
+    } catch (err: any) {
+      console.log(err);
+      return res.status(500).json({
+        error: "Something went wrong",
+      });
+    }
+  } else if (method == "PUT") {
+    const { id, type } = req.query;
+    let order = await Order.findById(id).populate({
+      path: "productId",
+      model: "Product",
+    });
+    if (!order) {
+      return res.status(500).json({
+        error: "Order not found",
+      });
+    }
+    order.status = type;
+    await order.save();
+    if (type == "Accepted") {
+      const bankAccount = await User.findById(order.userId);
+      // link in localhost:3001/api/transfer
+      const api = "http://localhost:3001/api/transfer";
+      const resBank = await axios.post(api, {
+        sellerId: order.sellerId,
+        amount: parseInt(order.quantity) * parseInt(order.productId.price),
+        bankAccountNumber: bankAccount.bankAccount,
+        apiKey: bankAccount.apiKey,
+      });
+      if (resBank.status != 200) {
+        return res.status(500).json({
+          error: resBank.data.error,
+        });
+      }
+    }
+    if (type == "Rejected") {
+      const bankAccount = await User.findById(order.userId);
+      const api = "http://localhost:3001/api/transferback";
+      const resBank = await axios.post(api, {
+        sellerId: order.sellerId,
+        amount: parseInt(order.quantity) * parseInt(order.productId.price),
+        bankAccountNumber: bankAccount.bankAccount,
+        apiKey: bankAccount.apiKey,
+      });
+      if (resBank.status != 200) {
+        return res.status(500).json({
+          error: resBank.data.error,
+        });
+      }
+    }
+    if (type == "Delivered") {
+      order.status = "Delivered";
+      await order.save();
+    }
+    res.status(200).json({ message: "Order updated successfully" });
   }
 };

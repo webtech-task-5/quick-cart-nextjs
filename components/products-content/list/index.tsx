@@ -2,8 +2,7 @@ import ProductItem from "../../product-item";
 import ProductsLoading from "./loading";
 import axios from "axios";
 import { useEffect, useState } from "react";
-const ProductsContent = () => {
-  const [data, setData] = useState([]);
+const ProductsContent = ({data,setData}:any) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/api/product");

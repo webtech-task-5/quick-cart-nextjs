@@ -3,12 +3,12 @@ import List from "./list";
 
 const ProductsContent = () => {
   const [orderProductsOpen, setOrderProductsOpen] = useState(false);
-
+  const [data, setData] = useState([]);
   return (
     <section className="products-content">
       <div className="products-content__intro">
         <h2>
-          Rug Offerings <span>(133)</span>
+          Rug Offerings <span>({data.length})</span>
         </h2>
         <button
           type="button"
@@ -41,7 +41,7 @@ const ProductsContent = () => {
         </form>
       </div>
 
-      <List />
+      <List data={data} setData={setData}/>
     </section>
   );
 };
