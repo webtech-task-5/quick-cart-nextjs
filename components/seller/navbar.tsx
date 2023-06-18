@@ -79,7 +79,7 @@ const mockdata = [
   { icon: IconHome2, label: "Home" },
   { icon: IconGauge, label: "Dashboard" },
   { icon: IconDeviceDesktopAnalytics, label: "Upload a Product" },
-  { icon: IconCalendarStats, label: "Releases" },
+  { icon: IconCalendarStats, label: "Order History" },
   { icon: IconUser, label: "Profile" },
   { icon: IconFingerprint, label: "Security" },
   { icon: IconSettings, label: "Settings" },

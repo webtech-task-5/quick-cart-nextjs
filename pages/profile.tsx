@@ -14,12 +14,17 @@ import {
   Progress,
 } from "@mantine/core";
 import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
-import React from "react";
-import UserCard from "../user-card";
+import React, { useEffect, useState } from "react";
+import UserCard from "../components/user-card";
+import jwt from "jsonwebtoken";
+
 const useStyles = createStyles((theme) => ({
   root: {
     padding: `calc(${theme.spacing.xl} * 0.5)`,
-    backgroundColor: theme.colors.gray[1],
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[5]
+        : theme.colors.gray[1],
   },
 
   label: {
@@ -27,11 +32,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Dashboard({
-  data,
-}: {
-  data: { data: any; seller: any };
-}) {
+export default function Profile() {
   console.log({ data });
   const theme = useMantineTheme();
   const { classes } = useStyles();
@@ -46,7 +47,6 @@ export default function Dashboard({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "100px",
       }}
     >
       <UserCard data={data.seller} />

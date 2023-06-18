@@ -109,7 +109,6 @@ const Content = ({ product }: any) => {
           <h5>Quantity:</h5>
           <div className="quantity-buttons">
             <div className="quantity-button">
-
               <button
                 type="button"
                 onClick={() => setCount(count - 1)}
