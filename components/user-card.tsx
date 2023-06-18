@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export default function Usercard({ data }: any) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-5">
       <div className="flex justify-end px-4 pt-4">
         {/* <button
           id="dropdownButton"
