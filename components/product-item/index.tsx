@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavProduct } from "store/reducers/user";
 import { RootState } from "store";
 import { ProductTypeList } from "types";
+import React from "react"
+import DefaultButton from "components/button";
 
 const ProductItem = ({
   discount,
@@ -29,18 +31,18 @@ const ProductItem = ({
   return (
     <div className="product-item">
       <div className="product__image">
-        <button
+        {/* <button
           type="button"
           onClick={toggleFav}
           className={`btn-heart ${isFavourite ? "btn-heart--active" : ""}`}
         >
           <i className="icon-heart"></i>
-        </button>
+        </button> */}
 
         <Link href={`/product/${id}`}>
           <a>
             <img src={images ? images[0] : ""} alt="product" />
-            {discount && <span className="product__discount">{discount}%</span>}
+            {/* {discount && <span className="product__discount">{discount}%</span>} */}
           </a>
         </Link>
       </div>
@@ -54,7 +56,7 @@ const ProductItem = ({
         >
           <h4>৳{currentPrice}</h4>
 
-          {discount && <span>৳{price}</span>}
+          {/* {discount && <span>৳{price}</span>} */}
         </div>
       </div>
     </div>
