@@ -5,7 +5,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   dbConnect();
   const method = req.method;
   const id = req.query.id;
-  console.log(res);
   if (method == "GET") {
     const user = await User.findById(id);
     if (user) {

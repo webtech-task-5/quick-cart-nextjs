@@ -20,16 +20,9 @@ import Products from "pages/products";
 import Header from "components/header";
 export default function Demo() {
   const [active, setActive] = useState(1);
-  //TODO: remove this demo data and fetch from the backend.
-  const demoData: { title: string; value: string; diff: number }[] = [
-    { title: "REVENUE", value: "13,456", diff: 1000 },
-    { title: "PROFIT", value: "13,456", diff: 1000 },
-    { title: "COUPON USAGE", value: "13,456", diff: 1000 },
-    { title: "NEW CUSTOMER", value: "13,456", diff: 1000 },
-  ];
 
-  console.log({ demoData });
   const [seller, setSeller] = useState(null);
+  const [addData, setAddData] = useState(null) as any;
   const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +31,35 @@ export default function Demo() {
       const id = decoded._doc?._id;
       const type = decoded._doc?.type;
       if (type !== "seller") return router.push("/");
-      const res = await axios.get("/api/seller?id=" + id);
+      const res = await axios.get(`/api/seller?id=${id}`);
+      const additonalData = await axios.get(
+        `/api/additonal?id=${id}&type=${type}`
+      );
+      console.log(additonalData.data);
       console.log(res.data);
       setSeller(res.data);
+      setAddData([
+        {
+          title: "REVENUE",
+          value: additonalData.data.goal,
+          diff: 1000,
+        },
+        {
+          title: "PROFIT",
+          value: additonalData.data.totalProfit,
+          diff: 1000,
+        },
+        {
+          title: "TOTAL ORDER",
+          value: additonalData.data.orderCount,
+          diff: 1000,
+        },
+        {
+          title: "TOTAL CUSTOMER",
+          value: additonalData.data.totalCustomers,
+          diff: 1000,
+        },
+      ]);
     };
     if (!seller) fetchData();
   }, [seller]);
@@ -58,7 +77,7 @@ export default function Demo() {
           <div>
             {active === 0 && <Products />}
             {active === 1 && (
-              <Dashboard data={{ data: demoData, seller: seller }} />
+              <Dashboard data={{ data: addData, seller: seller }} />
             )}
             {active === 2 && <UploadProduct />}
             {active === 3 && <OrderHistory />}

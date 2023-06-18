@@ -8,7 +8,6 @@ const ProductsContent = () => {
     <section className="products-content" style={{ marginTop: "20px" }}>
       <div className="products-content__intro">
         <h2>
-          {/* TODO: shows 0 from seller, but shows the data */}
           Rug Offerings <span>({data.length})</span>
         </h2>
         <button
