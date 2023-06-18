@@ -15,19 +15,8 @@ type Product = {
 };
 import axios from "axios";
 export default function OrderHistory() {
+
   const elements: Product[] = [
-    {
-      info: {
-        imageSrc: "/images/icons/user.png",
-        name: "abd",
-        price: "100",
-        orderTime: "23/06/23",
-      },
-      quantity: "2",
-      tprice: "2*100",
-      deliverAddress: "Bagan Bari, CTG",
-      status: "Pending",
-    },
     {
       info: {
         imageSrc: "/images/icons/user.png",
@@ -60,7 +49,7 @@ export default function OrderHistory() {
       alert(err.message);
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token") as string;
@@ -121,11 +110,11 @@ export default function OrderHistory() {
         style={{ textAlign: "center", verticalAlign: "middle", width: "150px" }}
       >
         <Select
-          placeholder="Custom active styles"
+          placeholder={element.status}
           size="xs"
-          label="Custom active styles"
+          disabled={element.status==="Delivered" || element.status==="Rejected"}
           defaultValue={element.status}
-          data={["Pending", "Accepted", "Rejected", "Delivered"]}
+          data={element.status==="Pending"?["Accepted", "Rejected", "Delivered"]: element.status==="Accepted"?["Delivered"]:[]}
           onChange={(value) => {
             console.log(value);
             if (value === "Pending") return;

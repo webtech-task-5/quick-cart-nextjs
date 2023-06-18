@@ -32,9 +32,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
 const Product = ({ product }: any) => {
   const [showBlock, setShowBlock] = useState("description");
-<<<<<<< HEAD
-  console.log({product});
-=======
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -48,7 +45,6 @@ const Product = ({ product }: any) => {
     }
   }, []);
 
->>>>>>> af1115f424f3996fe3d9aad80de7d19dfaee4ff9
   return (
     <Layout>
       <Breadcrumb />

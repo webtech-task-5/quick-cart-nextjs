@@ -1,44 +1,16 @@
-import Layout from "../layouts/Main";
-import {
-  createStyles,
-  Group,
-  Paper,
-  Text,
-  ThemeIcon,
-  SimpleGrid,
-  useMantineTheme,
-  Stack,
-  Container,
-  px,
-  Center,
-  Card,
-  Progress,
-  Button,
-} from "@mantine/core";
-import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
+
 import React, { useEffect, useState } from "react";
 import OrderHistory from "components/seller/order-history";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import Dashboard from "components/seller/dashboard";
-const useStyles = createStyles((theme) => ({
-  root: {
-    padding: `calc(${theme.spacing.xl} * 0.5)`,
-    backgroundColor: theme.colors.gray[1],
-  },
 
-  label: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-  },
-}));
 
 const Profile = () => {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
   const BASE_HEIGHT = 360;
-  const getSubHeight = (children: number, spacing: number) =>
+  (children: number, spacing: number) =>
     BASE_HEIGHT / children - spacing * ((children - 1) / children);
-  let dummy = {
+  const dummy = {
     data: [
       { title: "REVENUE", value: "13,456", diff: 1000 },
       { title: "PROFIT", value: "13,456", diff: 1000 },

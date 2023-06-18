@@ -8,12 +8,9 @@ import { addProduct } from "store/reducers/cart";
 import { toggleFavProduct } from "store/reducers/user";
 import { ProductType, ProductStoreType } from "types";
 import { RootState } from "store";
-<<<<<<< HEAD
 import { Badge } from "@mantine/core";
 
-=======
 import { useRouter } from "next/router";
->>>>>>> af1115f424f3996fe3d9aad80de7d19dfaee4ff9
 type ProductContent = {
   product: ProductType;
 };
