@@ -4,6 +4,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import Dashboard from "components/seller/dashboard";
 import Header from "components/header";
+import Head from "next/head";
 
 const Profile = () => {
   const BASE_HEIGHT = 360;
@@ -34,14 +35,45 @@ const Profile = () => {
       const decoded = jwt.decode(token) as any;
       const id = decoded._doc?._id;
       const res = await axios.get("/api/seller?id=" + id);
+      const additonalData = await axios.get(
+        "/api/additonal?id=" + id + "&type=customer"
+      );
+
       setSeller(res.data);
-      setData({ ...data, seller: res.data });
+      setData({
+        data: [
+          {
+            title: "REVENUE",
+            value: additonalData.data.totalSpentAmount,
+            diff: 1000,
+          },
+          {
+            title: "Total Spend",
+            value: additonalData.data.totalSpentAmount,
+            diff: 1000,
+          },
+          {
+            title: "Total Order",
+            value: additonalData.data.orderCount,
+            diff: 1000,
+          },
+          {
+            title: "Total Store",
+            value: additonalData.data.totalSeller,
+            diff: 1000,
+          },
+        ],
+        seller: res.data,
+      });
     };
     if (!seller) fetchData();
   }, []);
 
   return (
     <>
+      <Head>
+        <title>Profile</title>
+      </Head>
       {!seller ? (
         <h1>Loading...</h1>
       ) : (

@@ -61,7 +61,8 @@ const Header = ({ isErrorPage }: HeaderType) => {
       const decode = jwt.decode(token) as any;
       const type1 = decode._doc.type;
       setType(type1);
-      setLoginButton("/profile");
+      if (type1 === "seller") setLoginButton("/seller");
+      else setLoginButton("/profile");
     }
   }, []);
   return (
