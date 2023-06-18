@@ -146,7 +146,6 @@ const Profile = () => {
         </div>
       )}
 
-      <Footer />
     </Layout>
   );
 };

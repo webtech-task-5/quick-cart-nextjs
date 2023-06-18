@@ -2,6 +2,8 @@ import ProductItem from "../../product-item";
 import ProductsLoading from "./loading";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import React from "react"
+
 const ProductsContent = () => {
   const [data, setData] = useState([]);
   useEffect(() => {

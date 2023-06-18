@@ -134,13 +134,10 @@ const Content = ({ product }: any) => {
               Add to cart
             </button>
 
-            <button
-              type="button"
-              onClick={toggleFav}
-              className={`btn-heart ${isFavourite ? "btn-heart--active" : ""}`}
-            >
-              <i className="icon-heart"></i>
-            </button>
+            <button className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center" onClick={() => {}}>
+  <img className="w-5 h-5 object-cover" src="/images/icons/edit.png" alt="Edit Icon" />
+</button>
+
           </div>
         </div>
       </div>

@@ -56,7 +56,7 @@ const Product = ({ product }: any) => {
               >
                 Description
               </button>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => setShowBlock("reviews")}
                 className={`btn btn--rounded ${
@@ -64,7 +64,7 @@ const Product = ({ product }: any) => {
                 }`}
               >
                 Reviews (2)
-              </button>
+              </button> */}
             </div>
 
             <Description
