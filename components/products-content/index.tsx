@@ -9,8 +9,12 @@ const ProductsContent = () => {
     <section className="products-content" style={{ marginTop: "20px" }}>
       <div className="products-content__intro">
         <h2>
+<<<<<<< HEAD
           {/* TODO: shows 0 from seller, but shows the data */}
           Our Offerings <span>({data.length})</span>
+=======
+          Rug Offerings <span>({data.length})</span>
+>>>>>>> a7a5dc18f088ad656b6377c1e072c7ac92c7d520
         </h2>
         <button
           type="button"

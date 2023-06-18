@@ -5,7 +5,7 @@ import Logo from "../../assets/icons/logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { RootState } from "store";
-
+import jwt from "jsonwebtoken";
 type HeaderType = {
   isErrorPage?: Boolean;
 };
@@ -54,8 +54,13 @@ const Header = ({ isErrorPage }: HeaderType) => {
   useOnClickOutside(navRef, closeMenu);
   useOnClickOutside(searchRef, closeSearch);
   const [loginButton, setLoginButton] = useState("/login");
+  const [type, setType] = useState("customer");
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
+      const token = localStorage.getItem("token") as string;
+      const decode = jwt.decode(token) as any;
+      const type1 = decode._doc.type;
+      setType(type1);
       setLoginButton("/profile");
     }
   }, []);
@@ -104,8 +109,8 @@ const Header = ({ isErrorPage }: HeaderType) => {
               />
             </form>
           </button>
-          {/* TODO: dont show the cart for the seller */}
-          {
+
+          {type !== "seller" && (
             <Link href="/cart">
               <button className="btn-cart">
                 <i className="icon-cart"></i>
@@ -114,7 +119,8 @@ const Header = ({ isErrorPage }: HeaderType) => {
                 )}
               </button>
             </Link>
-          }
+          )}
+
           <Link href={loginButton}>
             <button className="site-header__btn-avatar">
               <i className="icon-avatar"></i>

@@ -86,7 +86,7 @@ export default function Dashboard({
                   Monthly goal
                 </Text>
                 <Text fz="lg" fw={500}>
-                  $5.431 / $10.000
+                  {data.data[0].value} ৳ / 100,000,00 ৳
                 </Text>
                 <Progress value={54.31} mt="md" size="lg" radius="xl" />
               </Card>
