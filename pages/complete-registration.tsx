@@ -11,7 +11,6 @@ const DynamicStepper = dynamic(
     ssr: false, // Ensure the component is not rendered on the server
   }
 );
-import Head from "next/head";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";

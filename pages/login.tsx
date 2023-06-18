@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import { useRouter } from "next/router";
+import Logo from "assets/icons/logo";
+import { Center, Image } from "@mantine/core";
 const LoginPage = () => {
   const { register, errors } = useForm();
   const router = useRouter();
@@ -56,6 +58,10 @@ const LoginPage = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p> */}
 
             <form className="form">
+              <Center mb="sm">
+                <Logo />
+              </Center>
+
               <div className="form__input-row">
                 <input
                   className="form__input"
@@ -103,7 +109,7 @@ const LoginPage = () => {
                 )}
               </div>
 
-              <div className="form__info">
+              {/* <div className="form__info">
                 <div className="checkbox-wrapper">
                   <label
                     htmlFor="check-signed-in"
@@ -125,7 +131,7 @@ const LoginPage = () => {
                 >
                   Forgot password?
                 </a>
-              </div>
+              </div> */}
 
               {/* <div className="form__btns">
                 <button type="button" className="btn-social fb-btn"><i className="icon-facebook"></i>Facebook</button>

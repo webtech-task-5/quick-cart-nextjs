@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import React from "react";
 
-const ProductsContent = ({data,setData}:any) => {
+const ProductsContent = ({ data, setData, selectVal }: any) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/api/product");
@@ -19,17 +19,33 @@ const ProductsContent = ({data,setData}:any) => {
 
       {data && (
         <section className="products-list">
-          {data.map((item: any) => (
-            <ProductItem
-              id={item._id}
-              name={item.name}
-              price={item.price}
-              color={item.color}
-              currentPrice={item.price}
-              key={item._id}
-              images={item.images}
-            />
-          ))}
+          {selectVal === "" &&
+            data.map((item: any) => (
+              <ProductItem
+                id={item._id}
+                name={item.name}
+                price={item.price}
+                color={item.color}
+                currentPrice={item.price}
+                key={item._id}
+                images={item.images}
+              />
+            ))}
+          {selectVal !== "all" &&
+            data.map(
+              (item: any) =>
+                item.category === selectVal && (
+                  <ProductItem
+                    id={item._id}
+                    name={item.name}
+                    price={item.price}
+                    color={item.color}
+                    currentPrice={item.price}
+                    key={item._id}
+                    images={item.images}
+                  />
+                )
+            )}
         </section>
       )}
     </>

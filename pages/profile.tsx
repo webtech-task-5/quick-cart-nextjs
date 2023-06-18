@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import Dashboard from "components/seller/dashboard";
 import Header from "components/header";
 import Head from "next/head";
+import Footer from "components/footer";
 
 const Profile = () => {
   const BASE_HEIGHT = 360;
@@ -90,6 +91,8 @@ const Profile = () => {
           </div>
 
           <OrderHistory />
+
+          <Footer />
         </>
       )}
     </>

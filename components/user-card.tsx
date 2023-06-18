@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultButton from "./button";
+import jwt from "jsonwebtoken";
 
 export default function Usercard({ data }: any) {
-  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("customer");
+  useEffect(() => {
+    if (localStorage.getItem("token") == null) {
+      window.location.href = "/";
+    }
+    const token = localStorage.getItem("token") as string;
+    const user = jwt.decode(token) as any;
+    setType(user._doc.type);
+  }, []);
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-5">
-      <div className="flex justify-end px-4 pt-4">
+    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-5 mx-10">
+      <div className="flex justify-end px-4 pt-4 ms-5">
         {/* <button
           id="dropdownButton"
           onClick={() => setOpen((op) => !op)}
@@ -43,7 +52,7 @@ export default function Usercard({ data }: any) {
           </ul>
         </div> */}
       </div>
-      <div className="flex flex-col items-center pb-5">
+      <div className="flex flex-col items-center ">
         <img
           className="w-24 h-24 mb-3 rounded-full shadow-lg"
           src="/images/icons/user.png"
@@ -59,9 +68,11 @@ export default function Usercard({ data }: any) {
         <span className="text-sm text-gray-500 dark:text-gray-400">
           Mobile Number: {data.phoneNo}
         </span>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          Store/Company name: {data.companyName}
-        </span>
+        {type === "seller" && (
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            Store/Company name: {data.companyName}
+          </span>
+        )}
         <br />
         <span className="text-sm text-gray-500 dark:text-gray-400">
           Bank Account Number : {data.bankAccount}

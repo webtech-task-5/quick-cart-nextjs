@@ -10,8 +10,9 @@ const Footer = () => {
               <Logo /> <span>Cart</span>-O
             </h6>
             <p>
-              House My Brand designs clothing for the young, the old & everyone
-              in between – but most importantly, for the fashionable
+              Cart-O offers fashionable rugs, curtains, and doormats for all
+              ages and styles. Discover high-quality home decor that suits your
+              taste.
             </p>
             {/* <ul className="site-footer__social-networks">
               <li>
