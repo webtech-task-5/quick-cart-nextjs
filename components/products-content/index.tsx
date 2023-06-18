@@ -4,12 +4,13 @@ import React from "react";
 const ProductsContent = () => {
   const [orderProductsOpen, setOrderProductsOpen] = useState(false);
   const [data, setData] = useState([]) as any;
+  const [selectval, setSelectVal] = useState("");
   return (
     <section className="products-content" style={{ marginTop: "20px" }}>
       <div className="products-content__intro">
         <h2>
           {/* TODO: shows 0 from seller, but shows the data */}
-          Rug Offerings <span>({data.length})</span>
+          Our Offerings <span>({data.length})</span>
         </h2>
         <button
           type="button"
@@ -26,8 +27,17 @@ const ProductsContent = () => {
           <div className="products__filter__select">
             <h4>Show products: </h4>
             <div className="select-wrapper">
-              <select>
-                <option>Popular</option>
+              <select
+                value={selectval}
+                onChange={(e) => {
+                  setSelectVal(e.currentTarget.value);
+                  console.log({ selectval });
+                }}
+              >
+                <option value="">All</option>
+                <option value="rug">Rug</option>
+                <option value="doormat">Doormat</option>
+                <option value="curtain">Curtain</option>
               </select>
             </div>
           </div>
@@ -41,8 +51,7 @@ const ProductsContent = () => {
           </div> */}
         </form>
       </div>
-
-      <List data={data} setData={setData} />
+      <List selectVal={selectval} />
     </section>
   );
 };

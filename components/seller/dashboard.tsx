@@ -12,6 +12,7 @@ import {
   Center,
   Card,
   Progress,
+  Divider,
 } from "@mantine/core";
 import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
 import React from "react";

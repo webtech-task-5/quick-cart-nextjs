@@ -85,8 +85,9 @@ export default function UploadProduct() {
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
-        height: "100vh",
+        height: "auto",
         width: "100vw",
+        marginTop: "100px",
       }}
     >
       <Center>
