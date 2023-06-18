@@ -47,23 +47,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const cusResult = await Order.aggregate([
         {
           $match: {
-            sellerId: bankAccount
-          }
+            sellerId: bankAccount,
+          },
         },
         {
           $group: {
-            _id: '$sellerId',
-            totalCustomers: { $addToSet: '$userId' }
-          }
+            _id: "$sellerId",
+            totalCustomers: { $addToSet: "$userId" },
+          },
         },
         {
           $project: {
             _id: 0,
-            totalCustomers: { $size: '$totalCustomers' }
-          }
-        }
+            totalCustomers: { $size: "$totalCustomers" },
+          },
+        },
       ]).exec();
-        const totalCustomers = cusResult[0].totalCustomers;
+      const totalCustomers = cusResult[0].totalCustomers;
       const orderCount = await Order.countDocuments({ sellerId: bankAccount });
       res.status(200).json({ goal, totalProfit, totalCustomers, orderCount });
     } catch (err: any) {

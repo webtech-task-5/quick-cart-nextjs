@@ -48,6 +48,7 @@ export default function Dashboard({
         justifyContent: "center",
         alignItems: "center",
         marginTop: "100px",
+        paddingLeft: "50px",
       }}
     >
       <UserCard data={data.seller} />
@@ -142,12 +143,12 @@ const GetChild = ({
           <DiffIcon size="1.8rem" stroke={1.5} />
         </ThemeIcon>
       </Group>
-      <Text c="dimmed" fz="sm" mt="md">
+      {/* <Text c="dimmed" fz="sm" mt="md">
         <Text component="span" c={stat.diff > 0 ? "teal" : "red"} fw={700}>
           {stat.diff}%
         </Text>{" "}
         {stat.diff > 0 ? "increase" : "decrease"} compared to last month
-      </Text>
+      </Text> */}
     </Paper>
   );
 };
