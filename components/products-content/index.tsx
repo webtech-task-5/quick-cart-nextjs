@@ -3,7 +3,7 @@ import List from "./list";
 import React from "react"
 const ProductsContent = () => {
   const [orderProductsOpen, setOrderProductsOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]) as any;
   return (
     <section className="products-content">
       <div className="products-content__intro">
