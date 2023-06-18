@@ -66,7 +66,14 @@ const Content = ({ product, edit }: any) => {
           Product ID:<br></br>
           {product._id}
         </h5>
-        <Badge  size="md" variant="gradient" gradient={{ from: '#99E9F2', to: '#000000', deg: 35 }} my={"sm"}>{product.category} </Badge>
+        <Badge
+          size="md"
+          variant="gradient"
+          gradient={{ from: "#99E9F2", to: "#000000", deg: 35 }}
+          my={"sm"}
+        >
+          {product.category}{" "}
+        </Badge>
         {/* <span className="product-on-sale">Sale</span> */}
         <h2 className="product__name">{product.name}</h2>
 

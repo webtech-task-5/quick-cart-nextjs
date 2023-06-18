@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavProduct } from "store/reducers/user";
 import { RootState } from "store";
 import { ProductTypeList } from "types";
-import React from "react"
+import React from "react";
 import DefaultButton from "components/button";
 
 const ProductItem = ({

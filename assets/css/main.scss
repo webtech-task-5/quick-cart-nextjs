@@ -282,7 +282,16 @@ h5 {
     }
     &.btn--yellow {
       background-color: var(--color-orange);
+      &:disabled {
+        color: #808080;
+        background-color: #fdd089;
+        cursor: not-allowed;
+      }
     }
+  }
+  &:disabled {
+    color: #808080;
+    cursor: not-allowed;
   }
 }
 
@@ -1121,13 +1130,7 @@ h5 {
   .site-footer__description {
     margin-right: auto;
     margin-bottom: 70px;
-    @include breakpoint(phone) {
-      width: 400px;
-      margin-bottom: 50px;
-    }
-    @include breakpoint(tablet-lg) {
-      margin-bottom: 0;
-    }
+
     svg {
       object-fit: contain;
       width: 45px;

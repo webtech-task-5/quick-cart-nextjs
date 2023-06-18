@@ -15,7 +15,6 @@ type Product = {
 };
 import axios from "axios";
 export default function OrderHistory() {
-
   const elements: Product[] = [
     {
       info: {
@@ -33,18 +32,17 @@ export default function OrderHistory() {
 
   const [data, setData] = useState([]);
 
-  const callAccepted = async (id: string,type:string) => {
+  const callAccepted = async (id: string, type: string) => {
     console.log(id);
-    try{
-      const result = await axios.put("/api/order?id=" + id + "&type="+type);
+    try {
+      const result = await axios.put("/api/order?id=" + id + "&type=" + type);
       if (result.status === 200) {
         alert(`Order ${type} successfully`);
         window.location.reload();
       } else {
         alert("Something went wrong");
       }
-    }
-    catch(err:any){
+    } catch (err: any) {
       console.log(err);
       alert(err.message);
     }
@@ -112,15 +110,23 @@ export default function OrderHistory() {
         <Select
           placeholder={element.status}
           size="xs"
-          disabled={element.status==="Delivered" || element.status==="Rejected"}
+          disabled={
+            element.status === "Delivered" || element.status === "Rejected"
+          }
           defaultValue={element.status}
-          data={element.status==="Pending"?["Accepted", "Rejected", "Delivered"]: element.status==="Accepted"?["Delivered"]:[]}
+          data={
+            element.status === "Pending"
+              ? ["Accepted", "Rejected", "Delivered"]
+              : element.status === "Accepted"
+              ? ["Delivered"]
+              : []
+          }
           onChange={(value) => {
             console.log(value);
             if (value === "Pending") return;
-            if (value === "Accepted") callAccepted(element._id,"Accepted");
-            if (value === "Rejected") callAccepted(element._id,"Rejected");
-            if (value === "Delivered") callAccepted(element._id,"Delivered");
+            if (value === "Accepted") callAccepted(element._id, "Accepted");
+            if (value === "Rejected") callAccepted(element._id, "Rejected");
+            if (value === "Delivered") callAccepted(element._id, "Delivered");
           }}
           styles={(theme) => ({
             item: {
@@ -147,30 +153,39 @@ export default function OrderHistory() {
   ));
 
   return (
-    <Center>
-      <Table mt={"100px"} style={{ width: "80%" }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: "left", verticalAlign: "middle" }}>
-              Product Info{" "}
-            </th>
-            <th style={{ textAlign: "center", verticalAlign: "middle" }}>
-              Quantity
-            </th>
-            <th style={{ textAlign: "center", verticalAlign: "middle" }}>
-              Delivery Address
-            </th>
-            <th style={{ textAlign: "center", verticalAlign: "middle" }}>
-              Total Price
-            </th>
-            <th style={{ textAlign: "center", verticalAlign: "middle" }}>
-              Status
-            </th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-    </Center>
+    <>
+      <Text weight="bold" size="xl" mt="100px" style={{ textAlign: "center" }}>
+        ORDER HISTORY
+      </Text>
+
+      <Center>
+        {data.length !== 0 && (
+          <Table mt={"100px"} style={{ width: "80%" }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", verticalAlign: "middle" }}>
+                  Product Info{" "}
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Quantity
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Delivery Address
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Total Price
+                </th>
+                <th style={{ textAlign: "center", verticalAlign: "middle" }}>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        )}
+        {data.length === 0 && <Text>No order found</Text>}
+      </Center>
+    </>
   );
 }
 const processAddress = (

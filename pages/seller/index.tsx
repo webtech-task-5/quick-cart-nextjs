@@ -11,7 +11,7 @@ import {
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
-import OrderHistory from "../../components/seller/order-history"
+import OrderHistory from "../../components/seller/order-history";
 import Head from "next/head";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -20,6 +20,7 @@ import Products from "pages/products";
 import Header from "components/header";
 export default function Demo() {
   const [active, setActive] = useState(1);
+  //TODO: remove this demo data and fetch from the backend.
   const demoData: { title: string; value: string; diff: number }[] = [
     { title: "REVENUE", value: "13,456", diff: 1000 },
     { title: "PROFIT", value: "13,456", diff: 1000 },
@@ -60,7 +61,7 @@ export default function Demo() {
               <Dashboard data={{ data: demoData, seller: seller }} />
             )}
             {active === 2 && <UploadProduct />}
-            {active === 3 && <OrderHistory/>}
+            {active === 3 && <OrderHistory />}
           </div>
         </AppShell>
       )}

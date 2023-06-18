@@ -77,6 +77,7 @@ const ShoppingCart = () => {
             <button
               className="btn btn--rounded btn--yellow"
               onClick={checkCheckout}
+              disabled={cartItems.length === 0}
             >
               Checkout
             </button>

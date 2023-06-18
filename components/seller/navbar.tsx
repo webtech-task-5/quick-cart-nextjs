@@ -80,9 +80,9 @@ const mockdata = [
   { icon: IconGauge, label: "Dashboard" },
   { icon: IconDeviceDesktopAnalytics, label: "Upload a Product" },
   { icon: IconCalendarStats, label: "Order History" },
-  { icon: IconUser, label: "Profile" },
-  { icon: IconFingerprint, label: "Security" },
-  { icon: IconSettings, label: "Settings" },
+  // { icon: IconUser, label: "Profile" },
+  // { icon: IconFingerprint, label: "Security" },
+  // { icon: IconSettings, label: "Settings" },
 ];
 
 export default function NavbarMinimal({

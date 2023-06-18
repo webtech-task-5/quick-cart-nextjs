@@ -1,15 +1,15 @@
-
 import React, { useEffect, useState } from "react";
 import OrderHistory from "components/seller/order-history";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import Dashboard from "components/seller/dashboard";
-
+import Header from "components/header";
 
 const Profile = () => {
   const BASE_HEIGHT = 360;
   (children: number, spacing: number) =>
     BASE_HEIGHT / children - spacing * ((children - 1) / children);
+  //TODO add Total Order, Total Cost, Coupons new etc from backend
   const dummy = {
     data: [
       { title: "REVENUE", value: "13,456", diff: 1000 },
@@ -46,7 +46,17 @@ const Profile = () => {
         <h1>Loading...</h1>
       ) : (
         <>
-          <Dashboard data={data} />
+          <Header />
+          <div
+            style={{
+              marginTop: "120px",
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+          >
+            <Dashboard data={data} />
+          </div>
+
           <OrderHistory />
         </>
       )}

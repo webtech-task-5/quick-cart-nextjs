@@ -36,7 +36,7 @@ const Product = ({ product }: any) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token") as string;
-    if(!token) return;
+    if (!token) return;
     const decoded = jwt.decode(token) as any;
     const id = decoded._doc?._id;
     if (id === product.sellerId._id) {
@@ -53,7 +53,7 @@ const Product = ({ product }: any) => {
         <div className="container">
           <div className="product-single__content">
             <Gallery images={product.images} />
-            <Content product={product} edit={edit}/>
+            <Content product={product} edit={edit} />
           </div>
 
           <div className="product-single__info">

@@ -78,10 +78,7 @@ export default function Dashboard({
                 radius="md"
                 // paddingx="lg"
                 sx={(theme) => ({
-                  backgroundColor:
-                    theme.colorScheme === "dark"
-                      ? theme.colors.dark[7]
-                      : theme.white,
+                  backgroundColor: theme.white,
                 })}
               >
                 <Text fz="xs" tt="uppercase" fw={800} c="dimmed">

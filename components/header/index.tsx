@@ -104,14 +104,17 @@ const Header = ({ isErrorPage }: HeaderType) => {
               />
             </form>
           </button>
-          <Link href="/cart">
-            <button className="btn-cart">
-              <i className="icon-cart"></i>
-              {cartItems.length > 0 && (
-                <span className="btn-cart__count">{cartItems.length}</span>
-              )}
-            </button>
-          </Link>
+          {/* TODO: dont show the cart for the seller */}
+          {
+            <Link href="/cart">
+              <button className="btn-cart">
+                <i className="icon-cart"></i>
+                {cartItems.length > 0 && (
+                  <span className="btn-cart__count">{cartItems.length}</span>
+                )}
+              </button>
+            </Link>
+          }
           <Link href={loginButton}>
             <button className="site-header__btn-avatar">
               <i className="icon-avatar"></i>
