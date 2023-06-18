@@ -11,6 +11,7 @@ import {
 import NavbarMinimal from "../../components/seller/navbar";
 import Dashboard from "../../components/seller/dashboard";
 import UploadProduct from "../../components/seller/upload-product";
+import OrderHistory from "../../components/seller/order-history"
 import Head from "next/head";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -54,11 +55,12 @@ export default function Demo() {
         >
           <Header />
           <div>
-            {active == 0 && <Products />}
-            {active == 1 && (
+            {active === 0 && <Products />}
+            {active === 1 && (
               <Dashboard data={{ data: demoData, seller: seller }} />
             )}
-            {active == 2 && <UploadProduct />}
+            {active === 2 && <UploadProduct />}
+            {active === 3 && <OrderHistory/>}
           </div>
         </AppShell>
       )}
