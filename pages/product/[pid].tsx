@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
 const Product = ({ product }: any) => {
   const [showBlock, setShowBlock] = useState("description");
-
+  console.log({product});
   return (
     <Layout>
       <Breadcrumb />
