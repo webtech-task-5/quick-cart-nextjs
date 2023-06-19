@@ -51,14 +51,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const cusResult = await Order.aggregate([
         {
           $match: {
-            sellerId: bankAccount,,
-          },,
+            sellerId: bankAccount,
+          },
         },
         {
           $group: {
-            _id: "$sellerId",
-            totalCustomers: { $addToSet: "$userId" },
-          },
             _id: "$sellerId",
             totalCustomers: { $addToSet: "$userId" },
           },
@@ -69,13 +66,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             totalCustomers: { $size: "$totalCustomers" },
           },
         },
-            totalCustomers: { $size: "$totalCustomers" },
-          },
-        },
       ]).exec();
       let totalCustomers;
       if (cusResult.length == 0) {
-      totalCustomers = 0;
+        totalCustomers = 0;
       } else {
         totalCustomers = cusResult[0].totalCustomers;
       }
