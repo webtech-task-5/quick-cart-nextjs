@@ -4,12 +4,17 @@ import axios from "axios";
 import { useEffect } from "react";
 import React from "react";
 
-const ProductsContent = ({ data, setData, selectVal }: any) => {
+const ProductsContent = ({ data, setData, selectVal ,sellerId}: any) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/api/product");
-      setData(result.data);
       console.log(result.data);
+      console.log(sellerId);
+      let pData = result.data;
+      if (sellerId !== "all") {
+        pData = result.data.filter((item: any) => item.sellerId._id === sellerId);
+      }
+      setData(pData);
     };
     fetchData();
   }, []);

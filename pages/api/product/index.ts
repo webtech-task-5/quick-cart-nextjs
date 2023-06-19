@@ -32,12 +32,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (method == "GET") {
     try {
-      // product field had sellerId and we need to populate it
-      const products = await Product.find({}).populate({
-        path: "sellerId",
-        model: User,
-      });
-      res.status(200).json(products);
+      const id = req.query.id;
+      console.log(req.query)
+
+      if (id) {
+        const product = await Product.find({
+          sellerId: id,
+        }).populate({
+          path: "sellerId",
+          model: User,
+        });
+        res.status(200).json(product);
+      } else {
+        const products = await Product.find({ }).populate({
+          path: "sellerId",
+          model: User,
+        });
+        res.status(200).json(products);
+      }
     } catch (err: any) {
       console.log(err);
       return res.status(500).json({

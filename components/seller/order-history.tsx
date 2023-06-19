@@ -53,6 +53,7 @@ export default function OrderHistory() {
       const token = localStorage.getItem("token") as string;
       const decoded = jwt.decode(token) as any;
       const bankId = decoded._doc?.bankAccount;
+      
       const result = await axios(
         "/api/order?bankId=" + bankId + "&type=" + "seller"
       );

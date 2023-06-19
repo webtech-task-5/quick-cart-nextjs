@@ -18,12 +18,16 @@ import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
 import Products from "pages/products";
 import Header from "components/header";
+import List from "components/products-content/list";
 export default function Demo() {
   const [active, setActive] = useState(1);
 
   const [seller, setSeller] = useState(null);
   const [addData, setAddData] = useState(null) as any;
   const router = useRouter();
+  const [data, setData] = useState([]) as any;
+  const [selectval, setSelectVal] = useState("all");
+  const [sid, setSid] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token") as string;
@@ -32,6 +36,7 @@ export default function Demo() {
       const type = decoded._doc?.type;
       if (type !== "seller") return router.push("/");
       const res = await axios.get(`/api/seller?id=${id}`);
+      setSid(id);
       const additonalData = await axios.get(
         `/api/additonal?id=${id}&type=${type}`
       );
@@ -75,12 +80,15 @@ export default function Demo() {
         >
           <Header />
           <div>
-            {active === 0 && <Products />}
+            {active === 0 && <Products sellerId = "all" />}
             {active === 1 && (
               <Dashboard data={{ data: addData, seller: seller }} />
             )}
             {active === 2 && <UploadProduct />}
             {active === 3 && <OrderHistory />}
+            {active === 4 && (
+             <Products sellerId={sid}/>
+            )}
           </div>
         </AppShell>
       )}

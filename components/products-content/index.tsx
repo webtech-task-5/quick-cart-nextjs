@@ -1,7 +1,7 @@
 import { useState } from "react";
 import List from "./list";
 import React from "react";
-const ProductsContent = () => {
+const ProductsContent = ({sellerId}:any) => {
   const [orderProductsOpen, setOrderProductsOpen] = useState(false);
   const [data, setData] = useState([]) as any;
   const [selectval, setSelectVal] = useState("");
@@ -50,7 +50,7 @@ const ProductsContent = () => {
           </div> */}
         </form>
       </div>
-      <List selectVal={selectval} data={data} setData={setData} />
+      <List selectVal={selectval} data={data} setData={setData} sellerId={sellerId}/>
     </section>
   );
 };
