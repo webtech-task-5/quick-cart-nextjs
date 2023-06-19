@@ -51,8 +51,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const cusResult = await Order.aggregate([
         {
           $match: {
-            sellerId: bankAccount,,
-          },,
+            sellerId: bankAccount,
+          },
         },
         {
           $group: {
