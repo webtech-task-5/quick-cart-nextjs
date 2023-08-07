@@ -83,11 +83,12 @@ export default function Dashboard({
                   backgroundColor: theme.white,
                 })}
               >
+                // TODO: add user type and restriction
                 <Text fz="xs" tt="uppercase" fw={800} c="dimmed">
                   Monthly goal
                 </Text>
                 <Text fz="lg" fw={500}>
-                  {data.data[0].value} ৳ / 100,000,00 ৳
+                ৳{data.data[0].value}  /  ৳100,000,00 
                 </Text>
                 <Progress value={54.31} mt="md" size="lg" radius="xl" />
               </Card>

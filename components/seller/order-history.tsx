@@ -14,7 +14,7 @@ type Product = {
   status: "Pending" | "Accepted" | "Rejected" | "Delivered";
 };
 import axios from "axios";
-export default function OrderHistory() {
+export default function OrderHistory({ userType }: { userType?: string }) {
   const elements: Product[] = [
     {
       info: {
@@ -53,12 +53,22 @@ export default function OrderHistory() {
       const token = localStorage.getItem("token") as string;
       const decoded = jwt.decode(token) as any;
       const bankId = decoded._doc?.bankAccount;
-      
-      const result = await axios(
-        "/api/order?bankId=" + bankId + "&type=" + "seller"
-      );
+      const userId = decoded._doc?._id;
+      const type = userType === "customer" ? "customer" : "seller";
+      if (!bankId) return;
+      let result;
+      if (type === "customer") {
+        result = await axios(
+          "/api/order?bankId=" + userId + "&type=" + "customer"
+        );
+      } else {
+        result = await axios(
+          "/api/order?bankId=" + bankId + "&type=" + "seller"
+        );
+      }
       console.log(result.data);
       setData(result.data);
+      console.log({ data });
     };
     fetchData();
   }, []);
@@ -86,7 +96,7 @@ export default function OrderHistory() {
             }}
           >
             <Text weight="bold">{element.productId.name}</Text>
-            <Text weight="bold">{element.productId.price} taka</Text>
+            <Text weight="bold"> ৳{element.productId.price}</Text>
             <Text weight="bold">{processTime(element.createdAt)}</Text>
           </div>
         </div>
@@ -103,7 +113,7 @@ export default function OrderHistory() {
         )}
       </td>
       <td style={{ textAlign: "center", verticalAlign: "middle" }}>
-        {element.productId.price * element.quantity}
+        ৳{element.productId.price * element.quantity}
       </td>
       <td
         style={{ textAlign: "center", verticalAlign: "middle", width: "150px" }}
@@ -112,7 +122,9 @@ export default function OrderHistory() {
           placeholder={element.status}
           size="xs"
           disabled={
-            element.status === "Delivered" || element.status === "Rejected"
+            element.status === "Delivered" ||
+            element.status === "Rejected" ||
+            userType === "customer"
           }
           defaultValue={element.status}
           data={

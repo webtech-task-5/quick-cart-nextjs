@@ -145,7 +145,7 @@ export default function UploadProduct() {
 
             <DefaultTextInput
               label="price"
-              placeholder="100 ৳"
+              placeholder=" ৳100"
               props={{ ...form.getInputProps("price") }}
             />
             <DefaultTextInput

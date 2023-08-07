@@ -90,7 +90,7 @@ const Profile = () => {
             <Dashboard data={data} />
           </div>
 
-          <OrderHistory />
+          <OrderHistory userType = "customer" />
 
           <Footer />
         </>
