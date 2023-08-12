@@ -23,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           sellerId: item.sellerId,
         };
       });
+
       console.log(cartItems);
 
       const data = {
@@ -32,10 +33,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         seller: cart,
         total,
       };
+
       const resBank = await axios.post(
         `http://localhost:3001/api/checkBalance`,
         data
       );
+
       if (resBank.status != 200) {
         return res.status(500).json({
           error: resBank.data.error,
@@ -67,13 +70,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (method == "GET") {
     try {
       const { bankId, type } = req.query;
-      const orders = await Order.find({
-        sellerId: bankId,
-      }).populate({
-        path: "productId",
-        model: "Product",
-      });
-      res.status(200).json(orders);
+      if (type == "customer") {
+        const orders = await Order.find({
+          userId: bankId,
+        }).populate({
+          path: "productId",
+          model: "Product",
+        });
+        return res.status(200).json(orders);
+      } else {
+        const orders = await Order.find({
+          sellerId: bankId,
+        }).populate({
+          path: "productId",
+          model: "Product",
+        });
+        res.status(200).json(orders);
+      }
     } catch (err: any) {
       console.log(err);
       return res.status(500).json({

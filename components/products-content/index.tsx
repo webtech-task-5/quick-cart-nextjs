@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import List from "./list";
 import React from "react";
-const ProductsContent = ({sellerId}:any) => {
+const ProductsContent = ({ sellerId }: any) => {
   const [orderProductsOpen, setOrderProductsOpen] = useState(false);
   const [data, setData] = useState([]) as any;
+  const [dl, setDl] = useState(data.length);
   const [selectval, setSelectVal] = useState("");
+  useEffect(() => {
+    setDl(data.length);
+  }, [data]);
   return (
     <section className="products-content" style={{ marginTop: "20px" }}>
       <div className="products-content__intro">
         <h2>
-          Our Offerings <span>({data.length})</span>
+          Our Offerings <span>({dl})</span>
         </h2>
         <button
           type="button"
@@ -30,6 +34,14 @@ const ProductsContent = ({sellerId}:any) => {
                 value={selectval}
                 onChange={(e) => {
                   setSelectVal(e.currentTarget.value);
+                  console.log({ e: e.currentTarget.value });
+                  setDl(
+                    e.currentTarget.value === ""
+                      ? data.length
+                      : data.filter(
+                          (item: any) => item.category === e.currentTarget.value
+                        ).length
+                  );
                   console.log({ selectval });
                 }}
               >
@@ -50,7 +62,12 @@ const ProductsContent = ({sellerId}:any) => {
           </div> */}
         </form>
       </div>
-      <List selectVal={selectval} data={data} setData={setData} sellerId={sellerId}/>
+      <List
+        selectVal={selectval}
+        data={data}
+        setData={setData}
+        sellerId={sellerId}
+      />
     </section>
   );
 };

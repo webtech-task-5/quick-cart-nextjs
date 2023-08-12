@@ -4,7 +4,17 @@ import axios from "axios";
 import { useEffect } from "react";
 import React from "react";
 
-const ProductsContent = ({ data, setData, selectVal ,sellerId}: any) => {
+const ProductsContent = ({
+  data,
+  setData,
+  selectVal,
+  sellerId,
+}: {
+  data: any;
+  setData: any;
+  selectVal: any;
+  sellerId: any;
+}) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("/api/product");
@@ -12,7 +22,9 @@ const ProductsContent = ({ data, setData, selectVal ,sellerId}: any) => {
       console.log(sellerId);
       let pData = result.data;
       if (sellerId !== "all") {
-        pData = result.data.filter((item: any) => item.sellerId._id === sellerId);
+        pData = result.data.filter(
+          (item: any) => item.sellerId._id === sellerId
+        );
       }
       setData(pData);
     };
