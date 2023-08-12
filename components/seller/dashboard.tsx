@@ -39,6 +39,7 @@ export default function Dashboard({
   const BASE_HEIGHT = 360;
   const getSubHeight = (children: number, spacing: number) =>
     BASE_HEIGHT / children - spacing * ((children - 1) / children);
+  console.log({data})
 
   return (
     <div
@@ -74,8 +75,8 @@ export default function Dashboard({
               )}
             </Stack>
             <Stack>
-              <GetChild height={BASE_HEIGHT} stat={data.data[0]} />
-              <Card
+              {data.seller.type!=="customer" && <GetChild height={BASE_HEIGHT} stat={data.data[0]} />}
+              {data.seller.type!=="customer" && <Card
                 withBorder
                 radius="md"
                 // paddingx="lg"
@@ -83,15 +84,14 @@ export default function Dashboard({
                   backgroundColor: theme.white,
                 })}
               >
-                // TODO: add user type and restriction
                 <Text fz="xs" tt="uppercase" fw={800} c="dimmed">
                   Monthly goal
                 </Text>
                 <Text fz="lg" fw={500}>
-                ৳{data.data[0].value}  /  ৳100,000,00 
+                ৳{data.data[0].value}  /  ৳100,000,00
                 </Text>
                 <Progress value={54.31} mt="md" size="lg" radius="xl" />
-              </Card>
+              </Card>}
             </Stack>
           </SimpleGrid>
         </Center>
