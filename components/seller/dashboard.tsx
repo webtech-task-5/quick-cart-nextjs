@@ -63,6 +63,7 @@ export default function Dashboard({
             <Stack>
               {data.data.map(
                 (stat: { title: string; value: string; diff: number }) => {
+                  
                   if (stat.title !== "REVENUE")
                     return (
                       <GetChild

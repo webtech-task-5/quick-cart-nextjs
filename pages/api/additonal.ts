@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../libs/dbConnect";
 import User from "models/User";
 import Order from "models/Order";
+import mongoose from "mongoose";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   dbConnect();
   const method = req.method;
@@ -88,46 +89,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "sellerId"
       );
       const totalSeller = seller.length;
-      const result = await Order.aggregate([
-        {
-          $match: {
-            userId: id,
-          },
-        },
-        {
-          $lookup: {
-            from: "products",
-            localField: "productId",
-            foreignField: "_id",
-            as: "product",
-          },
-        },
-        {
-          $unwind: "$product",
-        },
-        {
-          $group: {
-            _id: "$userId",
-            totalSpend: {
-              $sum: {
-                $multiply: [
-                  { $toInt: "$quantity" },
-                  { $toInt: "$product.price" },
-                ],
-              },
-            },
-          },
-        },
-      ]).exec();
 
-      console.log(result);
-      let totalSpentAmount;
-      if (result.length == 0) {
-        totalSpentAmount = 0;
-      } else {
-        totalSpentAmount = result[0].totalSpend;
-      }
-      res.status(200).json({ orderCount, totalSpentAmount, totalSeller });
+      const orders = await Order.find({
+        userId: new mongoose.Types.ObjectId(id),
+      })
+        .populate({
+          path: "productId",
+          model: "Product",
+        })
+        .exec();
+
+      let totalCost = 0;
+      orders.forEach((order) => {
+        totalCost += order.productId.price * order.quantity;
+      });
+
+      let totalCostStr = totalCost.toString() ;
+      totalCostStr = "৳ "+totalCostStr;
+      res
+        .status(200)
+        .json({ orderCount, totalSpentAmount: totalCostStr, totalSeller });
     } catch (err: any) {
       console.log(err);
       res.status(500).json({ message: "Something went wrong" });

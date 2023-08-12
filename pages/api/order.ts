@@ -70,29 +70,32 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (method == "GET") {
     try {
       const { bankId, type } = req.query;
-      if (type == "customer") {
-        const orders = await Order.find({
-          userId: bankId,
-        }).populate({
-          path: "productId",
-          model: "Product",
-        });
-        return res.status(200).json(orders);
+      let orders;
+      
+      if (type === "customer") {
+        orders = await Order.find({ userId: bankId })
+          .sort({ createdAt: -1 }) 
+          .populate({
+            path: "productId",
+            model: "Product",
+          });
       } else {
-        const orders = await Order.find({
-          sellerId: bankId,
-        }).populate({
-          path: "productId",
-          model: "Product",
-        });
-        res.status(200).json(orders);
+        orders = await Order.find({ sellerId: bankId })
+          .sort({ orderDate: -1 }) 
+          .populate({
+            path: "productId",
+            model: "Product",
+          });
       }
-    } catch (err: any) {
+    
+      return res.status(200).json(orders);
+    } catch (err) {
       console.log(err);
       return res.status(500).json({
         error: "Something went wrong",
       });
     }
+    
   } else if (method == "PUT") {
     const { id, type } = req.query;
     let order = await Order.findById(id).populate({

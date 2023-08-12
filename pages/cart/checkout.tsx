@@ -1,11 +1,13 @@
 import Layout from "../../layouts/Main";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutStatus from "../../components/checkout-status";
 import CheckoutItems from "../../components/checkout/items";
 import { RootState } from "store";
 import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import { Button, Divider, Modal, Table, Text } from "@mantine/core";
+import { emptyCart } from "store/reducers/cart";
+import { ProductStoreType } from "types";
 
 import DefaultButton from "components/button";
 import axios from "axios";
@@ -24,6 +26,7 @@ type delAddress = {
   country: string;
 };
 const CheckoutPage = () => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState<usertype | null>(null);
   const [deliveryAddress, setDeliveryAddress] = useState<delAddress>({
     address: "",
@@ -64,7 +67,12 @@ const CheckoutPage = () => {
       };
 
       const res = await axios.post("/api/order", order);
-      if (res.status === 200) alert("Order placed successfully");
+      if (res.status === 200) {
+        dispatch(emptyCart());
+        alert("Order placed successfully");
+
+        window.location.href = "/profile";
+      }
       console.log(res);
     } catch (err) {
       console.log(err);

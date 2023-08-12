@@ -52,8 +52,12 @@ const cartSlice = createSlice({
       const indexItem = indexSameProduct(state, action.payload.product);
       state.cartItems[indexItem].count = action.payload.count;
     },
+    emptyCart(state) {
+      state.cartItems = [];
+
+    }
   },
 });
 
-export const { addProduct, removeProduct, setCount } = cartSlice.actions;
+export const { addProduct, removeProduct, setCount,emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;
